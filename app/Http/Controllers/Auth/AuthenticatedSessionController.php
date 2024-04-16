@@ -12,32 +12,58 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
-    public function create(): View
+    public function create()
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->authenticate();
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'cod_admin' => 'nullable|string|exists:users,cod_admin',
+        ]);
 
-        $request->session()->regenerate();
+        // Extraer email y código de admin
+        $email = $request->email;
+        $codAdmin = $request->cod_admin;
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Intenta autenticar como usuario
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            // Obtener el usuario autenticado
+            $user = Auth::user();
+
+            // Verificar si el usuario es administrador
+            if ($user->cod_admin) {
+                // Si el usuario es administrador, verificar el código de administrador
+                if ($codAdmin && $user->cod_admin !== $codAdmin) {
+                    // Si el código de administrador no coincide, cerrar sesión y mostrar error
+                    Auth::logout();
+                    return back()->withErrors(['message' => 'El código de administrador proporcionado no es válido para este usuario.']);
+                }
+            } else {
+                // Si el usuario no es administrador pero proporcionó un código de administrador,
+                // cerrar sesión y mostrar error
+                if ($codAdmin) {
+                    Auth::logout();
+                    return back()->withErrors(['message' => 'Solo los administradores pueden proporcionar un código de administrador.']);
+                }
+            }
+
+            // Redirigir al dashboard si la autenticación fue exitosa
+            return redirect()->intended('/dashboard');
+        }
+
+        // Si las credenciales no son válidas, mostrar error y volver al formulario de inicio de sesión
+        return back()->withErrors(['message' => 'Credenciales no válidas']);
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): RedirectResponse
+
+    public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
 

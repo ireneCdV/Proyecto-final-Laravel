@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_worker', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
+            $table->dateTime('date')->nullable();
             $table->unsignedBigInteger('units'); //unidades
             $table->unsignedBigInteger('product_id'); //Clave foranea de la tabla productos
             $table->unsignedBigInteger('worker_id');  //Clave foranea de la tabla trabajdor
@@ -29,3 +29,5 @@ return new class extends Migration
         Schema::dropIfExists('product_worker');
     }
 };
+
+

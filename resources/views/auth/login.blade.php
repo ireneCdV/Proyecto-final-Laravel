@@ -26,6 +26,13 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
+        <!-- Cod_admin -->
+        <div>
+            <x-input-label for="cod_admin" :value="__('Codigo admin')" />
+            <x-text-input id="cod_admin" class="block mt-1 w-full" type="text" name="cod_admin" :value="old('cod_admin')"/>
+            <x-input-error :messages="$errors->get('cod_admin')" class="mt-2" />
+        </div>
+
         <!-- Recordar Contraseña -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">

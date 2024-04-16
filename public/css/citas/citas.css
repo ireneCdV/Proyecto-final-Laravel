@@ -1,0 +1,7 @@
+.service-background {
+    background-image: url('/imagenes/fondo_citas.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* Ajusta la altura según sea necesario */
+    border: none; /* Si deseas eliminar el borde de la tarjeta */
+}

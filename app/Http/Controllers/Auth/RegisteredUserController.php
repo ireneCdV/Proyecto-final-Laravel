@@ -35,6 +35,7 @@ class RegisteredUserController extends Controller
             'surname' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'], // Añadir validación para el campo teléfono
             'address' => ['required', 'string', 'max:255'], // Añadir validación para el campo dirección
+            'dni' => ['required', 'string', 'max:9'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -44,8 +45,11 @@ class RegisteredUserController extends Controller
             'surname' => $request->surname,
             'phone' => $request->phone, // Incluir el campo teléfono en la creación del usuario
             'address' => $request->address, // Incluir el campo dirección en la creación del usuario
+            'dni' => $request->dni, // Incluir el campo dni en la creación del usuario
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'cod_admin' => $request->cod_admin,
+
         ]);
 
         event(new Registered($user));

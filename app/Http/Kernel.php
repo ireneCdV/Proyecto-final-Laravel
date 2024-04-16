@@ -43,6 +43,12 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        // Agregamos un nuevo grupo de middleware llamado 'user' que incluye los middlewares 'auth' y 'role'
+        'user' => [
+            'auth',
+            'role',
+        ],
     ];
 
     /**
@@ -64,5 +70,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // Agrega el alias para tu middleware CheckUserRole
+        'role' => \App\Http\Middleware\CheckUserRole::class,
     ];
 }

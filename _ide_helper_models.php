@@ -13,6 +13,50 @@
 
 namespace App\Models{
 /**
+ * App\Models\Category
+ *
+ * @property int $id
+ * @property string $title
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Category|null $category
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
+ */
+	class Category extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Cita
+ *
+ * @property int $id
+ * @property string $fecha
+ * @property string $hora
+ * @property int $servicio_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Service|null $service
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereFecha($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereHora($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereServicioId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereUpdatedAt($value)
+ */
+	class Cita extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Invoice
  *
  * @property int $id
@@ -75,6 +119,7 @@ namespace App\Models{
  * @property string $price
  * @property int $stock
  * @property string $brand
+ * @property int $category_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Line> $lines
@@ -83,6 +128,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereBrand($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
@@ -97,6 +143,27 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Service
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $price
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Service newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Service newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Service query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Service whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Service whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Service whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Service wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Service whereUpdatedAt($value)
+ */
+	class Service extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\User
  *
  * @property int $id
@@ -104,9 +171,11 @@ namespace App\Models{
  * @property string $surname
  * @property string $phone
  * @property string $address
+ * @property string $dni
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property mixed $password
+ * @property string|null $cod_admin
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -121,7 +190,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCodAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDni($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
@@ -133,28 +204,5 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
 	class User extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\Worker
- *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Worker newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Worker newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Worker query()
- * @method static \Illuminate\Database\Eloquent\Builder|Worker whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Worker whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Worker whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Worker whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Worker wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Worker whereUpdatedAt($value)
- */
-	class Worker extends \Eloquent {}
 }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,5 @@ class UserController extends Controller
         // Pasar los datos a la vista
         return view('pedidos', ['orders' => $invoices]);
     }
-
 
 }

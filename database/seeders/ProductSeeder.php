@@ -20,6 +20,7 @@ class ProductSeeder extends Seeder
             'price' => 8.50,
             'stock' => 10,
             'brand' => 'Timotei',
+            'category_id'=> 2,
         ]);
 
         Product::create([
@@ -29,6 +30,7 @@ class ProductSeeder extends Seeder
             'price' => 5.99,
             'stock' => 12,
             'brand' => 'Elvive',
+            'category_id'=> 3,
         ]);
 
         Product::create([
@@ -38,6 +40,7 @@ class ProductSeeder extends Seeder
             'price' => 4.25,
             'stock' => 7,
             'brand' => 'Elvive',
+            'category_id'=> 4,
         ]);
 
         Product::create([
@@ -47,6 +50,7 @@ class ProductSeeder extends Seeder
             'price' => 16.50,
             'stock' => 5,
             'brand' => 'Denman',
+            'category_id'=> 1,
         ]);
 
         Product::create([
@@ -56,6 +60,7 @@ class ProductSeeder extends Seeder
             'price' => 6,
             'stock' => 8,
             'brand' => 'Pantene',
+            'category_id'=> 5,
         ]);
 
         Product::create([
@@ -65,6 +70,7 @@ class ProductSeeder extends Seeder
             'price' => 32.50,
             'stock' => 3,
             'brand' => 'Kerastase',
+            'category_id'=> 5,
         ]);
 
         Product::create([
@@ -74,6 +80,7 @@ class ProductSeeder extends Seeder
             'price' => 1.50,
             'stock' => 20,
             'brand' => 'Batiste',
+            'category_id'=> 2,
         ]);
 
         Product::create([
@@ -83,6 +90,7 @@ class ProductSeeder extends Seeder
             'price' => 2.99,
             'stock' => 15,
             'brand' => 'Babaria',
+            'category_id'=> 2,
         ]);
 
         Product::create([
@@ -92,6 +100,7 @@ class ProductSeeder extends Seeder
             'price' => 20,
             'stock' => 7,
             'brand' => 'Olaplex',
+            'category_id'=> 6,
         ]);
 
         Product::create([
@@ -101,6 +110,7 @@ class ProductSeeder extends Seeder
             'price' => 16.50,
             'stock' => 5,
             'brand' => 'Eco Styler',
+            'category_id'=> 9,
         ]);
 
         Product::create([
@@ -110,6 +120,7 @@ class ProductSeeder extends Seeder
             'price' => 12.99,
             'stock' => 8,
             'brand' => 'Pantene',
+            'category_id'=> 3,
         ]);
 
         Product::create([
@@ -119,6 +130,7 @@ class ProductSeeder extends Seeder
             'price' => 3,
             'stock' => 10,
             'brand' => 'Garnier',
+            'category_id'=> 2,
         ]);
 
         Product::create([
@@ -128,6 +140,7 @@ class ProductSeeder extends Seeder
             'price' => 3.50,
             'stock' => 14,
             'brand' => 'Pantene',
+            'category_id'=> 10,
         ]);
 
         Product::create([
@@ -137,6 +150,7 @@ class ProductSeeder extends Seeder
             'price' => 9.99,
             'stock' => 22,
             'brand' => 'Babaria',
+            'category_id'=> 8,
         ]);
 
         Product::create([
@@ -146,6 +160,7 @@ class ProductSeeder extends Seeder
             'price' => 9.99,
             'stock' => 10,
             'brand' => 'Crusellas',
+            'category_id'=> 7,
         ]);
 
         Product::create([
@@ -155,6 +170,7 @@ class ProductSeeder extends Seeder
             'price' => 6.50,
             'stock' => 15,
             'brand' => 'Garnier',
+            'category_id'=> 4,
         ]);
 
         Product::create([
@@ -164,15 +180,17 @@ class ProductSeeder extends Seeder
             'price' => 25,
             'stock' => 8,
             'brand' => 'Revlon',
+            'category_id'=> 9,
         ]);
 
         Product::create([
             'image' => 'imagenes/lacanelly.jpg',
-            'name' => 'Laca',
+            'name' => 'Gel Laca',
             'description' => 'Laca Normal.',
             'price' => 1,
             'stock' => 30,
             'brand' => 'Nelly',
+            'category_id'=> 9,
         ]);
 
         Product::create([
@@ -182,15 +200,17 @@ class ProductSeeder extends Seeder
             'price' => 5.99,
             'stock' => 10,
             'brand' => 'Pantene',
+            'category_id'=> 7,
         ]);
 
         Product::create([
             'image' => 'imagenes/cepillobeter.jpg',
-            'name' => 'Cepillo',
+            'name' => 'Peine',
             'description' => 'Cepillo Desenredante Natural Fiber Detangling Mini.',
             'price' => 5,
             'stock' => 10,
             'brand' => 'Beter',
+            'category_id'=> 1,
         ]);
     }
 }

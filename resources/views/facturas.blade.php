@@ -19,29 +19,36 @@
                         <li>
                             Factura #{{ $factura->num_invoice }} - Fecha: {{ $factura->date }} - Precio Total: {{$factura->total }}€
                             <button class="mostrar-detalles-btn" data-factura-id="{{ $factura->id }}">Mostrar detalles</button>
+                            <a href="{{ route('descargar_pdf', ['invoice_id' => $factura->id]) }}" class="descargar-pdf-btn">Descargar PDF</a>
+
 
                             <div class="detalles-factura" style="display: none; margin-top: 10px;">
                                 <h3>Detalles de la factura:</h3>
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr>
-                                            <th style="border: 1px solid #ddd; padding: 8px;">Nombre</th>
-                                            <th style="border: 1px solid #ddd; padding: 8px;">Descripción</th>
-                                            <th style="border: 1px solid #ddd; padding: 8px;">Cantidad</th>
-                                            <th style="border: 1px solid #ddd; padding: 8px;">Precio unid</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div class="factura-container">
+                                    <div class="factura-header">
+                                        <div class="factura-info">
+                                            <p>Factura #{{ $factura->num_invoice }}</p>
+                                            <p>Fecha: {{ $factura->date }}</p>
+                                        </div>
+                                        <div class="factura-total">
+                                            <p>Precio Total: {{$factura->total }}€</p>
+                                        </div>
+                                    </div>
+                                    <div class="factura-items">
                                         @foreach($factura->line as $linea)
-                                        <tr>
-                                            <td style="border: 1px solid #ddd; padding: 8px;">{{$linea->product->name}}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px;"> {{$linea->product->description }}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px;">{{$linea->amount }}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px;">{{$linea->product->price}}€</td>
-                                        </tr>
+                                        <div class="factura-item">
+                                            <div class="item-info">
+                                                <p class="item-name">{{$linea->product->name}}</p>
+                                                <p class="item-description">{{$linea->product->description }}</p>
+                                            </div>
+                                            <div class="item-quantity-price">
+                                                <p class="item-quantity">{{$linea->amount }}</p>
+                                                <p class="item-price">{{$linea->product->price}}€</p>
+                                            </div>
+                                        </div>
                                         @endforeach
-                                    </tbody>
-                                </table>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         @endforeach
@@ -64,4 +71,9 @@
             });
         });
     </script>
+
+    <!-- Sección de estilos -->
+    @section('styles')
+        <link href="{{ asset('css/facturas.css') }}" rel="stylesheet">
+    @endsection
 </x-app-layout>

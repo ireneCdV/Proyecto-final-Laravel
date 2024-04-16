@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <img src="{{ asset('imagenes/logo.jpg') }}" class="block h-9 w-auto"
-                            alt="Logo de la aplicación">
+                            alt="Logo de la tienda">
                     </a>
                 </div>
 
@@ -24,9 +24,19 @@
                         </x-nav-link>
 
                         {{-- Facturas --}}
-                    <x-nav-link :href="route('facturas')" :active="request()->routeIs('facturas')">
+                        <x-nav-link :href="route('facturas')" :active="request()->routeIs('facturas')">
                         {{ __('Facturas') }}
-                    </x-nav-link>
+                        </x-nav-link>
+
+                        {{-- Citas --}}
+                        <x-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.index')">
+                            {{ __('Citas') }}
+                        </x-nav-link>
+
+                            {{-- Ver cita --}}
+                        {{-- <x-nav-link :href="route('facturas')" :active="request()->routeIs('facturas')">
+                        {{ __('Ver Cita') }}
+                        </x-nav-link> --}}
                     </div>
 
                     <a href="{{ route('cart.list') }}" class="flex items-center space-x-1">
@@ -44,13 +54,13 @@
                         <span class="text-gray-700">{{ Cart::getTotalQuantity()}}</span>
                     </a>
                 </div>
-
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
+                        
                         <button
                             class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <div>{{ Auth::user()->name }}</div>

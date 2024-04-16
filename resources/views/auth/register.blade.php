@@ -35,6 +35,13 @@
             <x-input-error :messages="$errors->get('address')" class="mt-2" />
         </div>
 
+        <!-- Dni -->
+        <div class="mt-4">
+            <x-input-label for="dni" :value="__('Dni')" />
+            <x-text-input id="dni" class="block mt-1 w-full" type="text" name="dni" :value="old('dni')"
+                required autocomplete="dni" />
+            <x-input-error :messages="$errors->get('dni')" class="mt-2" />
+        </div>
 
         <!-- Email Address -->
         <div class="mt-4">

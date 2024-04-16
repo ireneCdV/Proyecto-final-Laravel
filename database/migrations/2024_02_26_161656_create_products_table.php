@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedDecimal('price');
             $table->unsignedBigInteger('stock');
             $table->string('brand'); //marca del producto.
+            $table->unsignedBigInteger('category_id'); //Clave foranea de la tabla category
             $table->timestamps();
         });
     }

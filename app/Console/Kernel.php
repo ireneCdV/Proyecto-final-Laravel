@@ -13,6 +13,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        // comando programado para el estado de las citas
+        $schedule->command('app:update-cite-status')->daily();
+
+        // Aquí añadimos nuestro comando personalizado para enviar recordatorios de citas
+        $schedule->command('app:send-cita-reminders')->daily();
     }
 
     /**

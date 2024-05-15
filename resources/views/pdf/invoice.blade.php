@@ -31,18 +31,23 @@
 </head>
 <body>
     <div class="invoice-header">
-        <h1>Factura {{$invoice->id}}</h1>
+        <img src="{{ public_path('imagenes/logo.jpg') }}" alt="Logo" style="width: 100px; height: auto;">
+        <div>
+            <h1 style="margin: 0;">Estilo & Tijeras</h1>
+            <p style="margin: 5px 0;">Telefono: 900 900 900</p>
+            <p style="margin: 5px 0;">estiloytijeras@gmail.com</p>
+        </div>
     </div>
 
-    <div>
+    <div class="invoice-details">
+        <h1 style="text-align: center">Factura simplificada</h1>
+        <p>Datos del cliente</p>
         <p>Nombre: {{ $user->name }}</p>
         <p>Apellidos: {{ $user->surname }}</p>
         <p>Telefono: {{ $user->phone }}</p>
         <p>Direccion: {{ $user->address }}</p>
         <p>Email: {{ $user->email }}</p>
-    </div>
 
-    <div class="invoice-details">
         <table>
             <thead>
                 <tr>
@@ -69,5 +74,8 @@
             <p>Total de la factura: {{ $invoice->total }}€</p>
         </div>
     </div>
+    <footer>
+        Gracias por confiar en nosotros, atentamente el equipo de Estilo & Tijeras.
+    </footer>
 </body>
 </html>

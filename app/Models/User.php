@@ -53,7 +53,11 @@ class User extends Authenticatable
 
     public function facturas():HasMany{
         return $this->hasMany(Invoice::class);
-}
+    }
+
+    public function citas():HasMany{
+        return $this->hasMany(Cita::class);
+    }
 
 
 }

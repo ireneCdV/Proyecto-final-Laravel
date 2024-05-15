@@ -19,38 +19,48 @@ class CategorySeeder extends Seeder
 
         Category::create([
             'title' => 'Champu',
+
         ]);
 
         Category::create([
             'title' => 'Crema',
+
+
         ]);
 
         Category::create([
             'title' => 'Mascarilla',
+
         ]);
 
         Category::create([
             'title' => 'Serum',
+
         ]);
 
         Category::create([
             'title' => 'Aceite',
+
         ]);
 
         Category::create([
             'title' => 'Tonico',
+
         ]);
 
         Category::create([
             'title' => 'Protector',
+
         ]);
 
         Category::create([
             'title' => 'Gel',
+
         ]);
 
         Category::create([
             'title' => 'Acondicionador',
+
         ]);
     }
 }

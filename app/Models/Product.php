@@ -10,17 +10,23 @@ class Product extends Model
 {
     use HasFactory;
 
-                
-                protected $fillable = [
-                    "image",
-                    "name",
-                    "description",
-                    "price",
-                    "stock",
-                    "brand"
-                ];
-    
-                public function lines():HasMany{
-                    return $this->hasMany(Line::class);
-                }
+
+    protected $fillable = [
+        "image",
+        "name",
+        "description",
+        "price",
+        "stock",
+        "brand"
+    ];
+
+    public function lines(): HasMany
+    {
+        return $this->hasMany(Line::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

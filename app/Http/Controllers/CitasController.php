@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Validator;
 use App\Models\Cita;
 use App\Http\Requests\CitaRequest;
 use App\Models\Service;
@@ -16,10 +16,15 @@ class CitasController extends Controller
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
-    {
-        $citas= Cita::all();
-        return view('citas.index', ['citas'=>$citas]);
-    }
+{
+    // Obtener el usuario autenticado
+    $user = Auth::user();
+
+    // Obtener todas las citas del usuario autenticado
+    $citas = $user->citas;
+
+    return view('citas.index', ['citas' => $citas]);
+}
 
     /**
      * Show the form for creating a new resource.
@@ -41,14 +46,59 @@ class CitasController extends Controller
      */
     public function store(CitaRequest $request)
     {
+        // Validar que la fecha seleccionada no sea un sábado o domingo y que no sea una fecha pasada
+        $validator = Validator::make($request->all(), [
+            'fecha' => [
+                'required',
+                'date',
+                'after_or_equal:today', // La fecha debe ser hoy o en el futuro
+                function ($attribute, $value, $fail) {
+                    if (date('N', strtotime($value)) >= 6) { // 6 y 7 corresponden a sábado y domingo respectivamente
+                        $fail('No se pueden programar citas para los sábados o domingos.');
+                    }
+                },
+            ],
+            'hora' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    // Verificar si ya existe una cita para la misma fecha y hora
+                    $existingCita = Cita::where('fecha', $request->input('fecha'))
+                        ->where('hora', $value)
+                        ->exists();
+    
+                    if ($existingCita) {
+                        $fail('Ya existe una cita programada para esta fecha y hora.');
+                    }
+    
+                    // Verificar que la hora de la cita sea al menos una hora después de la hora actual
+                    $currentDateTime = now();
+                    $selectedDateTime = \Carbon\Carbon::parse($request->input('fecha') . ' ' . $value);
+                    if ($selectedDateTime->lte($currentDateTime->addHour())) {
+                        $fail('La cita debe ser programada con al menos una hora de antelación.');
+                    }
+                },
+            ],
+        ], [
+            'fecha.required' => 'El campo fecha es obligatorio.',
+            'fecha.after_or_equal' => 'El día seleccionado ya ha pasado.',
+            'hora.required' => 'El campo hora es obligatorio.',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        // Si pasa la validación, guardar la cita con el user_id
         $cita = new Cita;
-		$cita->fecha = $request->input('fecha');
-		$cita->hora = $request->input('hora');
-		$cita->servicio_id = $request->input('servicio_id');
+        $cita->fecha = $request->input('fecha');
+        $cita->hora = $request->input('hora');
+        $cita->servicio_id = $request->input('servicio_id');
+        $cita->user_id = Auth::user()->id; // Obtener el ID del usuario autenticado
         $cita->save();
-
-        return to_route('citas.index');
+    
+        return redirect()->route('citas.index');
     }
+    
 
     /**
      * Display the specified resource.

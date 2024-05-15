@@ -33,10 +33,7 @@
                             {{ __('Citas') }}
                         </x-nav-link>
 
-                            {{-- Ver cita --}}
-                        {{-- <x-nav-link :href="route('facturas')" :active="request()->routeIs('facturas')">
-                        {{ __('Ver Cita') }}
-                        </x-nav-link> --}}
+                          
                     </div>
 
                     <a href="{{ route('cart.list') }}" class="flex items-center space-x-1">

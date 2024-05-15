@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<div class="d-flex justify-content-end mb-3"><a href="{{ route('citas.create') }}" class="btn btn-info">Create</a></div>
+	<div class="d-flex justify-content-end mb-3"><a href="{{ route('citas.create') }}" class="btn btn-info">Nueva cita</a></div>
 
 	<table class="table table-bordered">
 		<thead>
@@ -29,9 +29,16 @@
 						<div class="d-flex gap-2">
                             <a href="{{ route('citas.show', [$cita->id]) }}" class="btn btn-info">Ver</a>
                             <a href="{{ route('citas.edit', [$cita->id]) }}" class="btn btn-primary">Modificar</a>
-                            {!! Form::open(['method' => 'DELETE','route' => ['citas.destroy', $cita->id]]) !!}
-                                {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
+							<a href="{{ route('citas.destroy', [$cita->id]) }}" class="btn btn-danger"
+								onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar esta cita?')) { document.getElementById('delete-form-{{$cita->id}}').submit();}">
+								Eliminar
+							</a>
+							
+							<form id="delete-form-{{$cita->id}}" action="{{ route('citas.destroy', [$cita->id]) }}" method="POST" style="display: none;">
+								@csrf
+								@method('DELETE')
+							</form>
+                            
                         </div>
 					</td>
 				</tr>

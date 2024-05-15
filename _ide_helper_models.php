@@ -19,7 +19,8 @@ namespace App\Models{
  * @property string $title
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
@@ -39,20 +40,80 @@ namespace App\Models{
  * @property string $fecha
  * @property string $hora
  * @property int $servicio_id
+ * @property int $user_id
+ * @property int $estado
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Service|null $service
+ * @property-read \App\Models\User|null $usuario
  * @method static \Illuminate\Database\Eloquent\Builder|Cita newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cita newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cita query()
  * @method static \Illuminate\Database\Eloquent\Builder|Cita whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereEstado($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cita whereFecha($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cita whereHora($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cita whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cita whereServicioId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cita whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cita whereUserId($value)
  */
 	class Cita extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\CrudAdmin
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudAdmin newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudAdmin newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudAdmin query()
+ */
+	class CrudAdmin extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\CrudCategory
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudCategory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudCategory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudCategory query()
+ */
+	class CrudCategory extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\CrudCita
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudCita newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudCita newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudCita query()
+ */
+	class CrudCita extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\CrudProduct
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudProduct newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudProduct newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudProduct query()
+ */
+	class CrudProduct extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\CrudService
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudService newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudService newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CrudService query()
+ */
+	class CrudService extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -122,6 +183,7 @@ namespace App\Models{
  * @property int $category_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category|null $category
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Line> $lines
  * @property-read int|null $lines_count
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
@@ -179,6 +241,8 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cita> $citas
+ * @property-read int|null $citas_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $facturas
  * @property-read int|null $facturas_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications

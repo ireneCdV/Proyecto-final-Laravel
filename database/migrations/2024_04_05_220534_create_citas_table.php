@@ -16,6 +16,8 @@ return new class extends Migration
             $table->date('fecha');
             $table->time('hora');
             $table->integer('servicio_id');
+            $table->integer('user_id');
+            $table->boolean('estado')->default(true); //valor predeterminado "abierta"
             $table->timestamps();
         });
     }

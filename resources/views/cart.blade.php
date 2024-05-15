@@ -1,11 +1,11 @@
 <x-app-layout>
-    <main class="my-8 bg-gray-800 text-white">
+    <main class="my-8 bg-gray-100 text-gray-900">
         <div class="container px-6 mx-auto">
             <div class="flex justify-center my-6">
-                <div class="flex flex-col w-full p-8 bg-gray-900 shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
+                <div class="flex flex-col w-full p-8 bg-gray-200 shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
                     @if ($message = Session::get('success'))
-                    <div class="p-4 mb-3 bg-blue-400 rounded">
-                        <p class="text-white">{{ $message }}</p>
+                    <div class="p-4 mb-3 bg-gray-400 rounded">
+                        <p class="text-gray-900">{{ $message }}</p>
                     </div>
                     @endif
                     <h3 class="text-3xl font-bold">Carrito</h3>
@@ -46,7 +46,7 @@
                                                     <input type="number" name="quantity" value="{{ $item->quantity }}"
                                                         class="w-full text-center h-10 text-gray-800 outline-none rounded border border-gray-600 py-3" />
                                                     <button
-                                                        class="w-full px-4 mt-1 py-1.5 text-sm rounded shadow text-white bg-gray-800">Actualizar</button>
+                                                        class="w-full px-4 mt-1 py-1.5 text-sm rounded shadow text-gray-900 bg-gray-300">Actualizar</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -60,7 +60,7 @@
                                         <form action="{{ route('cart.remove') }}" method="POST">
                                             @csrf
                                             <input type="hidden" value="{{ $item->id }}" name="id">
-                                            <button class="px-3 py-1 text-white bg-gray-800 shadow rounded-full">
+                                            <button class="px-3 py-1 text-gray-900 bg-gray-300 shadow rounded-full">
                                                 <img src="imagenes/logoDelete.jpg" alt="Texto alternativo de la imagen"
                                                     height="20px" width="20px">
                                             </button>
@@ -81,12 +81,12 @@
                                 <form action="{{ route('checkout') }}" method="GET">
                                     @csrf
                                     <button
-                                        class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-blue-800">Realizar
+                                        class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-gray-800">Realizar
                                         Pedido</button>
                                 </form>
                                 <br>
                                 <div>
-                                    <a href="{{ route('products.list') }}" class="px-6 py-2 mt-3 text-sm rounded shadow text-white-800 hover:text-white-900 underline">Seguir comprando</a>
+                                    <a href="{{ route('products.list') }}" class="px-6 py-2 mt-3 text-sm rounded shadow text-gray-900 hover:text-gray-800 underline">Seguir comprando</a>
                                 </div>
                             </div>
                         </div>

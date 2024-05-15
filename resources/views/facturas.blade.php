@@ -18,8 +18,8 @@
                         @foreach($facturas as $factura)
                         <li>
                             Factura #{{ $factura->num_invoice }} - Fecha: {{ $factura->date }} - Precio Total: {{$factura->total }}€
-                            <button class="mostrar-detalles-btn" data-factura-id="{{ $factura->id }}">Mostrar detalles</button>
-                            <a href="{{ route('descargar_pdf', ['invoice_id' => $factura->id]) }}" class="descargar-pdf-btn">Descargar PDF</a>
+                            <button class="mostrar-detalles-btn  underline"  data-factura-id="{{ $factura->id }}">Mostrar detalles</button>
+                            <a href="{{ route('descargar_pdf', ['invoice_id' => $factura->id]) }}" class="descargar-pdf-btn ">Descargar PDF</a>
 
 
                             <div class="detalles-factura" style="display: none; margin-top: 10px;">
@@ -59,21 +59,24 @@
         </div>
     </div>
 
-    <script>
-        document.querySelectorAll('.mostrar-detalles-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const detallesFactura = btn.nextElementSibling;
-                if (detallesFactura.style.display === 'none' || detallesFactura.style.display === '') {
-                    detallesFactura.style.display = 'block';
-                } else {
-                    detallesFactura.style.display = 'none';
-                }
-            });
+
+<script>
+    document.querySelectorAll('.mostrar-detalles-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const detallesFactura = btn.parentNode.querySelector('.detalles-factura');
+            if (detallesFactura.style.display === 'none' || detallesFactura.style.display === '') {
+                detallesFactura.style.display = 'block';
+            } else {
+                detallesFactura.style.display = 'none';
+            }
         });
-    </script>
+    });
+</script>
+
+    
 
     <!-- Sección de estilos -->
-    @section('styles')
-        <link href="{{ asset('css/facturas.css') }}" rel="stylesheet">
-    @endsection
+    {{-- @section('styles') --}}
+    <link href="{{ asset('css/facturas.css') }}" rel="stylesheet">
+    {{-- @endsection --}}
 </x-app-layout>

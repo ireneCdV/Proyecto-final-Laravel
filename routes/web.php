@@ -3,13 +3,15 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CitasController;
+use App\Http\Controllers\CrudAdminsController;
+use App\Http\Controllers\CrudCategoriesController;
+use App\Http\Controllers\CrudProductsController;
+use App\Http\Controllers\CrudServicesController;
+use App\Http\Controllers\CrudCitasController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\PedirCitaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WorkerController;
-use App\Http\Controllers\WorkerLoginController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,6 +22,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 // Rutas protegidas que requieren autenticación
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -48,21 +52,37 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/facturas/{factura_id}', [InvoiceController::class, 'detallesFactura'])->name('facturas_detalles');
     Route::get('/facturas/{invoice_id}/pdf', [InvoiceController::class, 'descargarPDF'])->name('descargar_pdf');
 
-
-    //Citas 
-    /* Route::get('/pedir-cita', [PedirCitaController::class, 'create'])->name('pedir-cita'); */
 });
 
+
 //Citas
-Route::group(['prefix' => 'citas', 'namespace' => 'App\Http\Controllers'], function () {
-    // Rutas generadas por el generador de CRUD
-    Route::get('/', 'CitasController@index')->name('citas.index');
-    Route::get('/create', 'CitasController@create')->name('citas.create');
-    Route::post('/citas', 'CitasController@store')->name('citas.store');
-    Route::get('/{id}', 'CitasController@show')->name('citas.show');
-    Route::get('/{id}/edit', 'CitasController@edit')->name('citas.edit');
-    Route::put('/{id}', 'CitasController@update')->name('citas.update');
-    Route::delete('/{id}', 'CitasController@destroy')->name('citas.destroy');
+Route::middleware('auth')->group(function(){
+    Route::resource('citas', CitasController::class);
+});
+
+//CRUD  ADMINS
+Route::middleware('auth')->group(function(){
+    Route::resource('crudadmins', CrudAdminsController::class);
+});
+
+//CRUD  Categorias
+Route::middleware('auth')->group(function(){
+    Route::resource('crudcategories', CrudCategoriesController::class);
+});
+
+//CRUD  Servicios 
+Route::middleware('auth')->group(function(){
+    Route::resource('crudservices', CrudServicesController::class);
+});
+
+//CRUD  productos 
+Route::middleware('auth')->group(function(){
+    Route::resource('crudproducts', CrudProductsController::class);
+});
+
+//CRUD  Categorias
+Route::middleware('auth')->group(function(){
+    Route::resource('crudcitas', CrudCitasController::class);
 });
 
 

@@ -1,8 +1,18 @@
 @extends('default')
 
+@section('styles') <!-- Inicio de la sección de estilos -->
+<link rel="stylesheet" href="{{ asset('css/citas.css') }}">
+@endsection
+
+
 @section('content')
+
 <div class="container">
-    <h1>Solicitar cita</h1>
+    
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight" style="text-align: center">
+            {{ __('Solicitar cita') }}
+        </h2>
+    
 
     <!-- Mostrar mensajes de error si los hay -->
     @if ($errors->any())
@@ -67,10 +77,11 @@
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
 </div>
+
+
 @endsection
-
-
-<!-- Agregar enlace al archivo CSS -->
+{{-- <!-- Agregar enlace al archivo CSS -->
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/citas.css') }}">
-@endsection
+@endsection --}}
+

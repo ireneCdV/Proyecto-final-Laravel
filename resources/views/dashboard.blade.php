@@ -31,7 +31,54 @@
                         via email , whatsapp o llamarnos a nuestro teléfono gratuito: 951 204 547
                     </p>
                     <br>
-                    <img src="imagenes/inicio1.jpg" alt="Inicio1">
+                    
+                    <!-- Sección de Productos Destacados -->
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 justify-center">Productos Destacados</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center">
+                        <!-- Producto 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <img src="{{ asset('storage/images/champutimotei.jpg') }}" alt="Champu" class="w-full h-96 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold mb-2">Champú</h3>
+                                <p class="text-gray-600 mb-2">Champú específico para el pelo rizado.</p>
+                                <p class="text-gray-600 mb-2">Precio: 8.50€</p>
+                            </div>
+                        </div>
+                        <!-- Producto 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <img src="{{ asset('storage/images/cremapantene.jpg') }}" alt="Crema" class="w-full h-96 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold mb-2">Crema</h3>
+                                <p class="text-gray-600 mb-2">Curly Crema de Peinado para Rizos.</p>
+                                <p class="text-gray-600 mb-2">Precio: 12.99€ </p>
+                            </div>
+                        </div>
+                        <!-- Producto 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <img src="{{ asset('storage/images/peinedenman.jpg') }}" alt="Peine" class="w-full h-96 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold mb-2">Peine</h3>
+                                <p class="text-gray-600 mb-2">Peine especial para definir rizos.</p>
+                                <p class="text-gray-600 mb-2">Precio: 16.50€</p>
+                            </div>
+                        </div>
+
+                        <!-- Producto 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <img src="{{ asset('storage/images/spraybabaria.jpg') }}" alt="Peine" class="w-full h-96 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold mb-2">Protector</h3>
+                                <p class="text-gray-600 mb-2">Spray Protector Solar Pieles Sensibles..</p>
+                                <p class="text-gray-600 mb-2">Precio: 9.99€</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Botón para ver más productos -->
+                    <div class="text-center mt-8">
+                        <a href="{{ route('products.list') }}" class="btn btn-light">
+                            Ver más productos
+                        </a>
+                    </div>
                     <br>
                     <h2>Preguntas frecuentes</h2>
                     <p>
@@ -63,6 +110,8 @@
                         Política de Entrega.
                     </p>
                 </div>
+                <br>
+                    <img src="imagenes/inicio1.jpg" alt="Inicio1">
             </div>
         </div>
     </div>

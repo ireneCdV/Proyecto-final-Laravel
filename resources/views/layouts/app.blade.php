@@ -11,12 +11,18 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+        
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            @if(auth()->check() && auth()->user()->cod_admin)
+                @include('layouts.admin_navigation')
+            @else
+                @include('layouts.navigation')
+            @endif
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -34,4 +40,3 @@
         </div>
     </body>
 </html>
-

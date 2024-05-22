@@ -8,6 +8,9 @@ use App\Models\Cita;
 use App\Http\Requests\CitaRequest;
 use App\Models\Service;
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\JsonResponse;
+
 class CitasController extends Controller
 {
     /**
@@ -156,5 +159,16 @@ class CitasController extends Controller
         $cita->delete();
 
         return to_route('citas.index');
+    }
+
+    public function updateStatus(): JsonResponse
+    {
+        
+    
+        // Llamar al comando de Artisan
+        Artisan::call('app:update-cite-status');
+    
+        // Devolver una respuesta JSON indicando éxito
+        return response()->json(['message' => 'El estado de las citas ha sido actualizado correctamente.'], 200);
     }
 }

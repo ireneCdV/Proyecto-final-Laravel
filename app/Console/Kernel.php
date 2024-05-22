@@ -14,10 +14,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // comando programado para el estado de las citas
-        $schedule->command('app:update-cite-status')->daily();
+        $schedule->command('app:update-cite-status')->everyMinute();
 
         // Aquí añadimos nuestro comando personalizado para enviar recordatorios de citas
-        $schedule->command('app:send-cita-reminders')->daily();
+        //$schedule->command('app:send-cita-reminders')->hourly();
     }
 
     /**

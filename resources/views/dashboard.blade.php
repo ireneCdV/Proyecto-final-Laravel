@@ -5,12 +5,18 @@
         </h2>
     </x-slot>
 
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{-- {{ __("You're logged in!") }} --}}
-                    <h1 style="text-align: center" >Bienvenid@s</h1>
+                    <h1 style="text-align: center">Bienvenid@s</h1>
+                    <br>
+
+                    {{-- CONTADOR DE VISITAS --}}
+                    <div id="contador-visitas"></div>
+
                     <br>
                     <img src="imagenes/slider4.jpg" alt="Imagen 4">
                     <br>
@@ -115,4 +121,23 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Verificar si ya existe el contador en LocalStorage
+            if (localStorage.getItem('visitas')) {
+                // Obtener el valor actual del contador de visitas desde LocalStorage
+                var visitas = parseInt(localStorage.getItem('visitas'));
+                // Incrementar el contador de visitas
+                visitas++;
+                // Guardar el nuevo valor del contador en LocalStorage
+                localStorage.setItem('visitas', visitas);
+            } else {
+                // Si no existe, establecer el contador en 1 y guardarlo en LocalStorage
+                localStorage.setItem('visitas', 1);
+            }
+            // Mostrar el contador de visitas en el elemento con ID "contador-visitas"
+            $('#contador-visitas').text('Eres la persona numero: ' + localStorage.getItem('visitas') + ' en visitarnos enhorabuena');
+        });
+    </script>
 </x-app-layout>

@@ -3,7 +3,7 @@
     <script src="{{ asset('js/products.js') }}"></script>
     @endsection
     {{-- <script src="{{ asset('js/nouislider.js') }}"></script> --}}
-    <link href="{{ asset('css/product.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/product.css') }}" rel="stylesheet"> --}}
 
     
     <x-slot name="header">
@@ -11,6 +11,7 @@
             {{ __('Productos') }}
         </h2>
     </x-slot>
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -22,8 +23,9 @@
                             <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="search">
                                 Que estas buscado:
                             </label>
-                            <input type="text" name="search" id="search"
+                            <input type="text" name="search" id="search" 
                                 class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            
                         </div>
 
                         {{-- Filtro Marca --}}

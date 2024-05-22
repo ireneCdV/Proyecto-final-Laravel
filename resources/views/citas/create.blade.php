@@ -1,9 +1,5 @@
 @extends('default')
 
-@section('styles') <!-- Inicio de la sección de estilos -->
-<link rel="stylesheet" href="{{ asset('css/citas.css') }}">
-@endsection
-
 
 @section('content')
 
@@ -27,21 +23,21 @@
     
     <form method="POST" action="{{ route('citas.store') }}">
         @csrf
-    <!-- Sección de servicios -->
-    <h5>Servicios</h5>
-    <div class="row">
-        @foreach($services as $service)
-        <div class="col-md-4 mb-3">
-            <div class="card service-background">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $service->name }}</h5>
-                    <p class="card-text">Precio: {{ $service->price }}€</p>
-                    <input type="radio" name="servicio_id" value="{{ $service->id }}">
-                </div>
+<!-- Sección de servicios -->
+<h5>Servicios</h5>
+<div class="row">
+    @foreach($services as $service)
+    <div class="col-md-4 mb-3">
+        <div class="card" style="background-image: url('/imagenes/fondo_citas.jpg');">
+            <div class="card-body">
+                <h5 class="card-title">{{ $service->name }}</h5>
+                <p class="card-text">Precio: {{ $service->price }}€</p>
+                <input type="radio" name="servicio_id" value="{{ $service->id }}">
             </div>
         </div>
-        @endforeach
     </div>
+    @endforeach
+</div>
 
     <!-- Calendario -->
     {{-- <h2>Calendario</h2> --}}

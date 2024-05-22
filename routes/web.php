@@ -97,6 +97,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
+    Route::post('/citas/update-status', [CitasController::class, 'updateStatus'])->name('citas.update-status');
 
 
 require __DIR__ . '/auth.php';

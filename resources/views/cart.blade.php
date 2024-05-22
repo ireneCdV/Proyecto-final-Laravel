@@ -28,8 +28,7 @@
                                 <tr>
                                     <td class="hidden pb-4 md:table-cell" style="width:230px;">
                                         <a href="#">
-                                            <img src="{{ $item->attributes->image }}" class="w-[200px] rounded"
-                                                alt="Thumbnail">
+                                            <img src="{{ asset('storage/' . $item->attributes->image) }}" class="w-[200px] rounded" alt="Imagen producto">
                                         </a>
                                     </td>
                                     <td>
@@ -78,12 +77,17 @@
                                     <button class="px-6 py-2 text-sm rounded shadow text-white bg-red-800">Limpiar
                                         carrito</button>
                                 </form>
+                                @if (Cart::getTotalQuantity() > 0)
                                 <form action="{{ route('checkout') }}" method="GET">
                                     @csrf
                                     <button
                                         class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-gray-800">Realizar
                                         Pedido</button>
                                 </form>
+                                @else
+                                <button class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-gray-400 cursor-not-allowed" disabled>Realizar Pedido</button>
+                                @endif
+                                <br>
                                 <br>
                                 <div>
                                     <a href="{{ route('products.list') }}" class="px-6 py-2 mt-3 text-sm rounded shadow text-gray-900 hover:text-gray-800 underline">Seguir comprando</a>

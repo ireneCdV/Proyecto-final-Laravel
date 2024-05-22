@@ -42,7 +42,7 @@
 
 				<tr>
 					<td>{{ $crudproduct->id }}</td>
-					<td>{{ $crudproduct->image }}</td>
+					<td><img src="{{ asset('storage/' . $crudproduct->image) }}" alt="Imagen del producto" style="width: 100px; height: auto;"></td>
 					<td>{{ $crudproduct->name }}</td>
 					<td>{{ $crudproduct->description }}</td>
 					<td>{{ $crudproduct->price }}</td>

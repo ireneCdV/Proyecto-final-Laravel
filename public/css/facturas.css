@@ -1,50 +1,71 @@
+/* General styling for the factura section */
 .factura-container {
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 10px;
+    background-color: #f7fafc;
 }
 
 .factura-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
 }
 
-.factura-info p, .factura-total p {
+.factura-info p,
+.factura-total p {
     margin: 0;
+    font-weight: bold;
+    color: #2d3748;
 }
 
 .factura-items {
-    border-top: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .factura-item {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
 }
 
-.item-info {
-    flex-grow: 1;
+.logo-img {
+    width: 80px;
+    height: auto;
 }
 
-.item-name {
+.item-info p {
+    margin: 0;
+    color: #4a5568;
+}
+
+.item-quantity-price p {
+    margin: 0;
     font-weight: bold;
+    color: #2d3748;
 }
 
-.item-description {
-    font-size: 0.9em;
-    color: #666;
-}
-
-.item-quantity-price {
-    flex-shrink: 0;
-    text-align: right;
-}
-
-.item-quantity {
-    margin: 0 5px;
-}
-
-.item-price {
+.mostrar-detalles-btn,
+.descargar-pdf-btn {
+    color: #3182ce;
+    cursor: pointer;
     font-weight: bold;
+    text-decoration: underline;
 }
+
+.mostrar-detalles-btn:hover,
+.descargar-pdf-btn:hover {
+    color: #2b6cb0;
+}
+
+.factura {
+    margin-bottom: 20px; /* Espacio entre facturas */
+}
+

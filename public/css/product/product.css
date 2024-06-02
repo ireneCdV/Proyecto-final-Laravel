@@ -1,0 +1,87 @@
+.tarjeta{
+  /* border: 1px solid #D4AF37; */ /* Color del borde dorado */
+  /* border-radius: 5px; */ /* Ajusta el radio de la esquina según tu diseño */
+
+  border: 1px solid #C0C0C0; /* Color del borde plateado */
+    border-radius: 8px; /* Ajusta el radio de la esquina según tu diseño */
+    position: relative;
+}
+
+
+
+.favorito-btn {
+  position: absolute;
+  top: 10px; /* Ajusta según sea necesario */
+  right: 10px; /* Ajusta según sea necesario */
+  background: transparent;
+  border: none;
+  font-size: 24px; /* Ajusta el tamaño del icono según sea necesario */
+  cursor: pointer;
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+
+.favorito-btn span {
+  font-size: 24px;
+}
+
+/* PRODUCTOS DESTACADOS */
+.product-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.product-image img {
+  width: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: auto;
+  margin-right: 20px;
+}
+
+.product-details {
+  flex: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.background-animation {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh; 
+  background-image: url('/imagenes/fondoProductos.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Fijar el fondo para que se mueva con el contenido */
+  animation: slideBackground 10s linear infinite;
+}
+
+@keyframes slideBackground {
+  0% {
+    background-position: top;
+  }
+  100% {
+    background-position: bottom;
+  }
+}

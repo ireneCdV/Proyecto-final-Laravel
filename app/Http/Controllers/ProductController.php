@@ -9,6 +9,27 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
+    // Método para mostrar los detalles de un producto y los productos relacionados
+    public function show($id)
+    {
+        // Obtener el producto actual
+        $product = Product::findOrFail($id);
+    
+        // Obtener productos de la misma categoría, excluyendo el producto actual
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->limit(2) // Limitar el número de productos relacionados
+            ->get();
+
+
+        /* dd($relatedProducts); */
+    
+        // Pasar los datos del producto y los productos relacionados a la vista
+        return view('show', compact('product', 'relatedProducts'));
+    }
+
+
+
     public function productList(Request $request)
     {
         // Inicializar la consulta de productos

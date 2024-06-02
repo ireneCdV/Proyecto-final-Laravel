@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_worker', function (Blueprint $table) {
+        Schema::create('user_category', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date')->nullable();
-            $table->unsignedBigInteger('units'); //unidades
-            $table->unsignedBigInteger('product_id'); //Clave foranea de la tabla productos
-            $table->unsignedBigInteger('worker_id');  //Clave foranea de la tabla trabajdor
+            $table->integer('user_id');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }
@@ -26,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_worker');
+        Schema::dropIfExists('user_category');
     }
 };
-
-

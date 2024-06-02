@@ -1,0 +1,53 @@
+
+
+.image-scroll {
+    position: fixed;
+    width: 200px; /* Ajusta el ancho según tu diseño */
+    height: calc(100vh - 100px); /* Ajusta la altura según tu diseño */
+    
+    overflow: hidden;
+}
+
+#image-scroll-left {
+    left: 10px; /* Ajusta la posición según tu diseño */
+    top: 50px; /* Ajusta la posición según tu diseño */
+}
+
+#image-scroll-right {
+    right: 10px; /* Ajusta la posición según tu diseño */
+    top: 50px; /* Ajusta la posición según tu diseño */
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    animation: scrollImages 30s linear infinite;
+}
+
+.image-container.reverse {
+    animation: scrollImagesReverse 30s linear infinite;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+@keyframes scrollImages {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes scrollImagesReverse {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}

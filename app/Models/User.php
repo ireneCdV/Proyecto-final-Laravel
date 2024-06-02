@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,5 +60,20 @@ class User extends Authenticatable
         return $this->hasMany(Cita::class);
     }
 
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function cita(): BelongsToMany
+    {
+        return $this->belongsToMany(Cita::class);
+    }
+
+    public function productos(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
 
 }

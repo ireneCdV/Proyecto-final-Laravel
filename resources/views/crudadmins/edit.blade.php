@@ -46,6 +46,7 @@
 		</div>
 
 		{{ Form::submit('Editar', array('class' => 'btn', 'style' => 'background-color: ##0D6EFD')) }}
+		<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 
 		
 

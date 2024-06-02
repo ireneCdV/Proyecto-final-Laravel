@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CrudCategory;
 use App\Http\Requests\CrudCategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class CrudCategoriesController extends Controller
 {
@@ -40,10 +41,16 @@ class CrudCategoriesController extends Controller
     public function store(CrudCategoryRequest $request)
     {
         $crudcategory = new Category;
-		$crudcategory->title = $request->input('title');
+        $crudcategory->title = $request->input('title');
         $crudcategory->save();
 
-        return to_route('crudcategories.index');
+        // Almacena la relación en la tabla pivot user_category
+        DB::table('user_category')->insert([
+            'user_id' => auth()->id(), // ID del usuario que ha creado la categoría
+            'category_id' => $crudcategory->id // ID de la categoría recién creada
+        ]);
+
+        return redirect()->route('crudcategories.index');
     }
 
     /**
@@ -80,10 +87,18 @@ class CrudCategoriesController extends Controller
     public function update(CrudCategoryRequest $request, $id)
     {
         $crudcategory = Category::findOrFail($id);
-		$crudcategory->title = $request->input('title');
+        
+        // Guarda los cambios en la categoría
+        $crudcategory->title = $request->input('title');
         $crudcategory->save();
 
-        return to_route('crudcategories.index');
+        // Inserta un nuevo registro en la tabla pivot user_category
+        DB::table('user_category')->insert([
+            'user_id' => auth()->id(), // ID del usuario que ha actualizado la categoría
+            'category_id' => $crudcategory->id // ID de la categoría actualizada
+        ]);
+
+        return redirect()->route('crudcategories.index');
     }
 
     /**
@@ -95,8 +110,16 @@ class CrudCategoriesController extends Controller
     public function destroy($id)
     {
         $crudcategory = Category::findOrFail($id);
+        
+        // Inserta un nuevo registro en la tabla pivot user_category para la eliminación
+        DB::table('user_category')->insert([
+            'user_id' => auth()->id(), // ID del usuario que ha eliminado la categoría
+            'category_id' => $crudcategory->id // ID de la categoría eliminada
+        ]);
+
+        // Elimina la categoría
         $crudcategory->delete();
 
-        return to_route('crudcategories.index');
+        return redirect()->route('crudcategories.index');
     }
 }

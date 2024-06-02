@@ -1,11 +1,16 @@
 @extends('default')
 
 @section('content')
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
 
 
+<h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+    {{ __('Gestion de citas') }}
+</h2>
+<br>
 
-<div class="d-flex justify-content-end mb-3"><a href="{{ route('crudcitas.create') }}" class="btn btn-info">Pedir cita</a></div>
+{{-- <div class="d-flex justify-content-end mb-3"><a href="{{ route('crudcitas.create') }}" class="btn btn-info">Pedir cita</a></div> --}}
 
 
 <!-- Formulario para filtros -->
@@ -21,8 +26,8 @@
         <div class="col">
             <select name="estado" class="form-control">
                 <option value="">Todos</option>
-                <option value="1">Abierta</option>
-                <option value="0">Cerrada</option>
+                <option value="1">Pendientes</option>
+                <option value="0">Pasadas</option>
             </select>
         </div>
         <div class="col">
@@ -54,7 +59,7 @@
             <td>{{ $crudcita->usuario->name ?? 'N/A' }}</td>
             <td>
                 <div class="d-flex gap-2">
-                    <a href="{{ route('crudcitas.show', [$crudcita->id]) }}" class="btn btn-info">Ver</a>
+                    <a href="{{ route('crudcitas.show', [$crudcita->id]) }}" class="btn btn-success">Ver</a>
                     <a href="{{ route('crudcitas.edit', [$crudcita->id]) }}" class="btn btn-primary">Editar</a>
                     <a href="{{ route('crudcitas.destroy', [$crudcita->id]) }}" class="btn btn-danger"
                         onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar esta cita?')) { document.getElementById('delete-form-{{$crudcita->id}}').submit();}">

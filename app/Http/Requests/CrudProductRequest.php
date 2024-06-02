@@ -25,11 +25,12 @@ class CrudProductRequest extends FormRequest
     {
         return
         [
-			'image' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
+			/* 'image' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048', */
 			'name' => 'required',
 			'description' => 'required',
 			'price' => 'required',
-			'stock' => 'required',
+			/* 'stock' => 'required', */
+            'units'=>'nullable',
 			'brand' => 'required',
 			'category_id' => 'required',
         ];

@@ -1,6 +1,7 @@
 @extends('default')
 
 @section('content')
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
 	@if($errors->any())
 		<div class="alert alert-danger">

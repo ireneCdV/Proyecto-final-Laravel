@@ -1,4 +1,5 @@
 <x-app-layout>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Facturas') }}
@@ -10,20 +11,17 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1>Todas tus facturas:</h1>
-
+                    <br>
                     @if($facturas->isEmpty())
                     <p>No tienes facturas aún.</p>
                     @else
-                    <ul>
+                    <div class="facturas-container">
                         @foreach($facturas as $factura)
-                        <li>
-                            Factura #{{ $factura->num_invoice }} - Fecha: {{ $factura->date }} - Precio Total: {{$factura->total }}€
-                            <button class="mostrar-detalles-btn  underline"  data-factura-id="{{ $factura->id }}">Mostrar detalles</button>
-                            <a href="{{ route('descargar_pdf', ['invoice_id' => $factura->id]) }}" class="descargar-pdf-btn ">Descargar PDF</a>
-
+                        <div class="factura">
+                            Factura Nº{{ $factura->num_invoice }} - Fecha: {{ $factura->date }} - Precio Total: {{$factura->total }}€
+                            <button class="mostrar-detalles-btn underline" data-factura-id="{{ $factura->id }}">Mostrar detalles</button>
 
                             <div class="detalles-factura" style="display: none; margin-top: 10px;">
-                                <h3>Detalles de la factura:</h3>
                                 <div class="factura-container">
                                     <div class="factura-header">
                                         <div class="factura-info">
@@ -38,6 +36,7 @@
                                         @foreach($factura->line as $linea)
                                         <div class="factura-item">
                                             <div class="item-info">
+                                                <img src="{{ asset('storage/' . $linea->product->image) }}" alt="{{ $linea->product->name }}" class="logo-img" style="max-width: 50px;"> <!-- Ajustar el tamaño de la imagen -->
                                                 <p class="item-name">{{$linea->product->name}}</p>
                                                 <p class="item-description">{{$linea->product->description }}</p>
                                             </div>
@@ -50,33 +49,29 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
+
+                            <a href="{{ route('descargar_pdf', ['invoice_id' => $factura->id]) }}" class="descargar-pdf-btn">Descargar PDF</a>
+                        </div>
                         @endforeach
-                    </ul>
+                    </div>
                     @endif
                 </div>
             </div>
         </div>
     </div>
 
-
-<script>
-    document.querySelectorAll('.mostrar-detalles-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const detallesFactura = btn.parentNode.querySelector('.detalles-factura');
-            if (detallesFactura.style.display === 'none' || detallesFactura.style.display === '') {
-                detallesFactura.style.display = 'block';
-            } else {
-                detallesFactura.style.display = 'none';
-            }
+    <script>
+        document.querySelectorAll('.mostrar-detalles-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const detallesFactura = btn.parentNode.querySelector('.detalles-factura');
+                if (detallesFactura.style.display === 'none' || detallesFactura.style.display === '') {
+                    detallesFactura.style.display = 'block';
+                } else {
+                    detallesFactura.style.display = 'none';
+                }
+            });
         });
-    });
-</script>
+    </script>
 
-    
-
-    <!-- Sección de estilos -->
-    {{-- @section('styles') --}}
     <link href="{{ asset('css/facturas.css') }}" rel="stylesheet">
-    {{-- @endsection --}}
 </x-app-layout>

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
 
 use App\Models\CrudAdmin;
 use App\Http\Requests\CrudAdminRequest;
@@ -108,11 +110,20 @@ class CrudAdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        // Obtener el administrador autenticado
+        $admin = auth()->user();
+
+        // Verificar el código de administrador proporcionado
+        if ($request->input('cod_admin') !== $admin->cod_admin) {
+            return redirect()->route('crudadmins.index')->with('error', 'Código de administrador incorrecto.');
+        }
+
+        // Eliminar el administrador
         $crudadmin = User::findOrFail($id);
         $crudadmin->delete();
 
-        return to_route('crudadmins.index');
+        return redirect()->route('crudadmins.index')->with('success', 'Administrador eliminado correctamente.');
     }
 }

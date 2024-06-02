@@ -1,4 +1,5 @@
 <x-app-layout>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <main class="my-8 bg-gray-100 text-gray-900">
         <div class="container px-6 mx-auto">
             <div class="flex justify-center my-6">
@@ -78,14 +79,17 @@
                                         carrito</button>
                                 </form>
                                 @if (Cart::getTotalQuantity() > 0)
-                                <form action="{{ route('checkout') }}" method="GET">
+                                <form action="{{ route('checkout') }}" method="GET" id="checkoutForm">
                                     @csrf
                                     <button
-                                        class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-gray-800">Realizar
-                                        Pedido</button>
+                                        type="button"
+                                        class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-gray-800"
+                                        onclick="playSoundAndSubmit()">
+                                        Realizar Pedido
+                                    </button>
                                 </form>
                                 @else
-                                <button class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-gray-400 cursor-not-allowed" disabled>Realizar Pedido</button>
+                                {{-- <button class="px-6 py-2 mt-3 text-sm rounded shadow text-white bg-gray-400 cursor-not-allowed" disabled>Realizar Pedido</button> --}}
                                 @endif
                                 <br>
                                 <br>
@@ -100,4 +104,13 @@
             </div>
         </div>
     </main>
+    <script>
+        function playSoundAndSubmit() {
+            var audio = new Audio('{{ asset('sounds/sound-effect-dinero.mp3') }}');
+            audio.play();
+            audio.onended = function() {
+                document.getElementById('checkoutForm').submit();
+            };
+        }
+    </script>
 </x-app-layout>

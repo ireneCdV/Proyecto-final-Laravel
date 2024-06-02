@@ -1,6 +1,7 @@
 @extends('default')
 
 @section('content')
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
 	<h2>Información del Usuario</h2>
 <br>
@@ -11,7 +12,7 @@
 	@else
 		<p>No se encontró información del usuario.</p>
 	@endif
-
+<br>
 	<h2>Información de la Cita</h2>
 <br>
     <p>ID de la Cita: {{ $crudcita->id }}</p>

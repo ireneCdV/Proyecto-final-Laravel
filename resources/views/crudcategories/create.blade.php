@@ -19,6 +19,7 @@
 
 
 		{{ Form::submit('Crear', array('class' => 'btn btn-primary')) }}
+		<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 
 	{{ Form::close() }}
 

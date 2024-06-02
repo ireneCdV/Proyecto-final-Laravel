@@ -11,4 +11,5 @@
 	<p>Telefono: {{ $crudadmin->phone }}</p>
 	
 
+	<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 @stop

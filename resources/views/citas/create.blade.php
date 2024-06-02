@@ -1,14 +1,12 @@
 @extends('default')
 
-
 @section('content')
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
 <div class="container">
-    
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight" style="text-align: center">
-            {{ __('Solicitar cita') }}
-        </h2>
-    
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight" style="text-align: center">
+        {{ __('Solicitar cita') }}
+    </h2>
 
     <!-- Mostrar mensajes de error si los hay -->
     @if ($errors->any())
@@ -20,64 +18,81 @@
         </ul>
     </div>
     @endif
-    
+
     <form method="POST" action="{{ route('citas.store') }}">
         @csrf
-<!-- Sección de servicios -->
-<h5>Servicios</h5>
-<div class="row">
-    @foreach($services as $service)
-    <div class="col-md-4 mb-3">
-        <div class="card" style="background-image: url('/imagenes/fondo_citas.jpg');">
-            <div class="card-body">
-                <h5 class="card-title">{{ $service->name }}</h5>
-                <p class="card-text">Precio: {{ $service->price }}€</p>
-                <input type="radio" name="servicio_id" value="{{ $service->id }}">
+        <!-- Sección de servicios -->
+        <h5>Servicios: </h5>
+        <div class="row">
+            @foreach($services as $service)
+            <div class="col-md-4 mb-3">
+                <div class="card bg-dark text-white" style="background-image: url('/imagenes/servicios.jpg'); background-size: cover; height: 200px;">
+                    <div class="card-img-overlay d-flex flex-column justify-content-center">
+                        <h5 class="card-title" style="font-size: 18px;">{{ $service->name }}</h5>
+                        <p class="card-text" style="font-size: 18px;">Precio: {{ $service->price }}€</p>
+                        <label style="font-size: 16px;">
+                            <input type="radio" name="servicio_id" value="{{ $service->id }}">
+                            Seleccionar
+                        </label>
+                    </div>
+                </div>
             </div>
+            @endforeach
         </div>
-    </div>
-    @endforeach
-</div>
 
-    <!-- Calendario -->
-    {{-- <h2>Calendario</h2> --}}
-    
+        <!-- Calendario -->
         <div class="form-group">
             <label for="date">Selecciona la fecha:</label>
-            <input type="date" class="form-control" id="date" name="fecha">
+            <input type="date" class="form-control w-25" id="date" name="fecha" required>
         </div>
 
         <!-- Horario -->
-    {{-- <h2>Horario</h2> --}}
         <div class="form-group">
             <label for="time">Selecciona el horario:</label>
-            <select class="form-control" id="time" name="hora">
-                <option value="10:00">10:00 AM</option>
-                <option value="10:30">10:30 AM</option>
-                <option value="11:00">11:00 AM</option>
-                <option value="11:30">11:30 AM</option>
-                <option value="12:00">12:00 AM</option>
-                <option value="12:30">12:30 AM</option>
-                <option value="13:00">13:00 AM</option>
-                <option value="13:30">13:30 AM</option>
-                <option value="17:00">17:00 AM</option>
-                <option value="17:30">17:30 AM</option>
-                <option value="18:00">18:00 AM</option>
-                <option value="18:30">18:30 AM</option>
-                <option value="19:00">19:00 AM</option>
-                <option value="19:30">19:30 AM</option>
-                <option value="20:00">20:00 AM</option>
-                <option value="20:30">20:30 AM</option>
+            <select class="form-control w-25" id="time" name="hora" required>
+                <option value="">Seleccione una hora</option>
+                <!-- Las horas disponibles se cargarán aquí -->
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="button-gold mt-3">Enviar</button>
+        <a href="{{ url()->previous() }}" class="metal-silver mt-3">Volver</a>
     </form>
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#date').on('change', function() {
+            var selectedDate = $(this).val();
+    
+            $.ajax({
+                url: "{{ route('available-hours') }}",
+                method: "GET",
+                data: { fecha: selectedDate },
+                success: function(response) {
+                    var timeSelect = $('#time');
+                    timeSelect.empty();
+                    timeSelect.append('<option value="">Seleccione una hora</option>');
+    
+                    // Combina las horas disponibles y ocupadas en un solo conjunto
+                    var allHours = response.availableHours.concat(response.takenHours);
+                    allHours.sort(); // Ordenar las horas para mantener el orden cronológico
+    
+                    allHours.forEach(function(hour) {
+                        if (response.takenHours.includes(hour)) {
+                            timeSelect.append('<option disabled style="color: red;">' + hour + ' (ocupado)</option>');
+                        } else {
+                            timeSelect.append('<option value="' + hour + '">' + hour + '</option>');
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+    </script>
+    
+    
 @endsection
-{{-- <!-- Agregar enlace al archivo CSS -->
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/citas.css') }}">
-@endsection --}}
-

@@ -33,6 +33,11 @@
                             {{ __('Citas') }}
                         </x-nav-link>
 
+                        {{-- Contacto --}}
+                        <x-nav-link :href="route('contacto')" :active="request()->routeIs('contacto')">
+                            {{ __('Contacto') }}
+                        </x-nav-link>
+
                           
                     </div>
 

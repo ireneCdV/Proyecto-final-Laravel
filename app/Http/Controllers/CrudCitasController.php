@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cita;
 use App\Http\Requests\CrudCitaRequest;
+use App\Models\Service;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 class CrudCitasController extends Controller
 {
@@ -16,18 +20,32 @@ class CrudCitasController extends Controller
      */
     public function index(Request $request)
     {
+        // Crear la consulta base con relaciones
         $query = Cita::with(['usuario', 'service']);
-
+    
+        // Filtrar por rango de fechas si están presentes
         if ($request->filled('start_date') && $request->filled('end_date')) {
             $query->whereBetween('fecha', [$request->start_date, $request->end_date]);
         }
-
-        if ($request->has('estado')) {
-            $query->where('estado', $request->estado);
+    
+        // Filtrar por estado si está presente y no está vacío
+        if ($request->filled('estado')) {
+            if ($request->estado === '') {
+                // Mostrar citas abiertas y pasadas
+                $query->where(function($q) {
+                    $q->where('estado', 1) // Abiertas
+                      ->orWhere('fecha', '<', now()); // Pasadas
+                });
+            } else {
+                // Filtrar por el estado específico
+                $query->where('estado', $request->estado);
+            }
         }
-
+    
+        // Obtener los resultados de la consulta
         $crudcitas = $query->get();
-
+    
+        // Retornar la vista con los resultados
         return view('crudcitas.index', ['crudcitas' => $crudcitas]);
     }
 
@@ -83,7 +101,9 @@ class CrudCitasController extends Controller
     public function edit($id)
     {
         $crudcita = Cita::findOrFail($id);
-        return view('crudcitas.edit',['crudcita'=>$crudcita]);
+        $services = Service::all(); // Suponiendo que tienes un modelo llamado Service para gestionar los servicios
+        $users = User::all(); // Suponiendo que tienes un modelo llamado User para gestionar los usuarios
+        return view('crudcitas.edit', ['crudcita' => $crudcita, 'services' => $services, 'users' =>$users]);
     }
 
     /**
@@ -96,13 +116,21 @@ class CrudCitasController extends Controller
     public function update(CrudCitaRequest $request, $id)
     {
         $crudcita = Cita::findOrFail($id);
-		$crudcita->fecha = $request->input('fecha');
-		$crudcita->hora = $request->input('hora');
-		$crudcita->servicio_id = $request->input('servicio_id');
-		$crudcita->user_id = $request->input('user_id');
+
+        // Guarda los cambios en la cita
+        $crudcita->fecha = $request->input('fecha');
+        $crudcita->hora = $request->input('hora');
+        $crudcita->servicio_id = $request->input('servicio_id');
+        $crudcita->user_id = $request->input('user_id');
         $crudcita->save();
 
-        return to_route('crudcitas.index');
+        // Inserta un nuevo registro en la tabla pivot user_cites
+        DB::table('user_cites')->insert([
+            'user_id' => auth()->id(), // ID del usuario que ha actualizado la cita
+            'cite_id' => $crudcita->id // ID de la cita actualizada
+        ]);
+
+        return redirect()->route('crudcitas.index');
     }
 
     /**
@@ -114,8 +142,19 @@ class CrudCitasController extends Controller
     public function destroy($id)
     {
         $crudcita = Cita::findOrFail($id);
+
+        // Inserta un nuevo registro en la tabla pivot user_cites para la eliminación
+        DB::table('user_cites')->insert([
+            'user_id' => auth()->id(), // ID del usuario que ha eliminado la cita
+            'cite_id' => $crudcita->id // ID de la cita eliminada
+        ]);
+
+        // Elimina la cita
         $crudcita->delete();
 
-        return to_route('crudcitas.index');
+        return redirect()->route('crudcitas.index');
     }
+
+    
+
 }

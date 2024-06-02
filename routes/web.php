@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CitasController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CrudAdminsController;
 use App\Http\Controllers\CrudCategoriesController;
 use App\Http\Controllers\CrudProductsController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Mail;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,7 +25,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 
 // Rutas protegidas que requieren autenticación
@@ -38,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Rutas de productos y carrito
     Route::get('products', [ProductController::class, 'productList'])->name('products.list');
+    Route::get('/productos/{id}', [ProductController::class, 'show'])->name('productos.show');
     Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
     Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
     Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
@@ -59,6 +62,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware('auth')->group(function(){
     Route::resource('citas', CitasController::class);
 });
+
+Route::get('/available-hours', [CitasController::class, 'getAvailableHours'])->name('available-hours');
+
 
 //CRUD  ADMINS
 Route::middleware('auth')->group(function(){
@@ -97,7 +103,31 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
-    Route::post('/citas/update-status', [CitasController::class, 'updateStatus'])->name('citas.update-status');
+
+/* Actualizar estado de la cita */
+Route::post('/citas/update-status', [CitasController::class, 'updateStatus'])->name('citas.update-status');
+
+
+/* Contacto */
+Route::get('/contacto', [ContactController::class, 'show'])->name('contacto');
+Route::post('/contacto/submit', [ContactController::class, 'submit'])->name('contact.submit');
+
+    
+/* Enviar email al pedir la cita */
+Route::get('/send-test-email', function () {
+    $user = \App\Models\User::find(1); // Reemplaza con un usuario válido
+
+    Mail::raw('This is a test email.', function ($message) use ($user) {
+        $message->to($user->email)
+                ->subject('Test Email');
+    });
+
+    return 'Email sent!';
+});
+
+
+
+
 
 
 require __DIR__ . '/auth.php';

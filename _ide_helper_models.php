@@ -69,67 +69,24 @@ namespace App\Models{
 /**
  * App\Models\Contact
  *
+ * @property int $id
+ * @property string $subject
+ * @property string $message
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereSubject($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUserId($value)
  */
 	class Contact extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\CrudAdmin
- *
- * @method static \Illuminate\Database\Eloquent\Builder|CrudAdmin newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudAdmin newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudAdmin query()
- */
-	class CrudAdmin extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\CrudCategory
- *
- * @method static \Illuminate\Database\Eloquent\Builder|CrudCategory newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudCategory newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudCategory query()
- */
-	class CrudCategory extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\CrudCita
- *
- * @method static \Illuminate\Database\Eloquent\Builder|CrudCita newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudCita newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudCita query()
- */
-	class CrudCita extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\CrudProduct
- *
- * @method static \Illuminate\Database\Eloquent\Builder|CrudProduct newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudProduct newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudProduct query()
- */
-	class CrudProduct extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\CrudService
- *
- * @method static \Illuminate\Database\Eloquent\Builder|CrudService newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudService newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CrudService query()
- */
-	class CrudService extends \Eloquent {}
 }
 
 namespace App\Models{

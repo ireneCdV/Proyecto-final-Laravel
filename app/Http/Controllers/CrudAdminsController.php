@@ -2,31 +2,26 @@
 
 namespace App\Http\Controllers;
 namespace App\Http\Controllers;
-
-
 use Illuminate\Http\Request;
-
-use App\Models\CrudAdmin;
 use App\Http\Requests\CrudAdminRequest;
 use App\Models\User;
 
 class CrudAdminsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de recursos.
      *
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
-{
-    // Filtrar solo los usuarios que tengan cod_admin lleno
-    $crudadmins = User::whereNotNull('cod_admin')->get();
-    
-    return view('crudadmins.index', ['crudadmins' => $crudadmins]);
-}
+    {
+        $crudadmins = User::whereNotNull('cod_admin')->get();
+        
+        return view('crudadmins.index', ['crudadmins' => $crudadmins]);
+    }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -36,7 +31,7 @@ class CrudAdminsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un recurso recién creado en el almacenamiento.
      *
      * @param  CrudAdminRequest  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -58,7 +53,7 @@ class CrudAdminsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
@@ -70,7 +65,7 @@ class CrudAdminsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
@@ -82,7 +77,7 @@ class CrudAdminsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso especificado en el almacenamiento.
      *
      * @param  CrudAdminRequest  $request
      * @param  int  $id
@@ -105,22 +100,19 @@ class CrudAdminsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso especificado del almacenamiento.
      *
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
     {
-        // Obtener el administrador autenticado
         $admin = auth()->user();
 
-        // Verificar el código de administrador proporcionado
         if ($request->input('cod_admin') !== $admin->cod_admin) {
             return redirect()->route('crudadmins.index')->with('error', 'Código de administrador incorrecto.');
         }
 
-        // Eliminar el administrador
         $crudadmin = User::findOrFail($id);
         $crudadmin->delete();
 

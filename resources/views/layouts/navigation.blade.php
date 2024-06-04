@@ -6,8 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('imagenes/logo.jpg') }}" class="block h-9 w-auto"
-                            alt="Logo de la tienda">
+                        <img src="{{ asset('imagenes/logo.jpg') }}" class="block h-9 w-auto" alt="Logo de la tienda">
                     </a>
                 </div>
 
@@ -25,7 +24,7 @@
 
                         {{-- Facturas --}}
                         <x-nav-link :href="route('facturas')" :active="request()->routeIs('facturas')">
-                        {{ __('Facturas') }}
+                            {{ __('Facturas') }}
                         </x-nav-link>
 
                         {{-- Citas --}}
@@ -38,7 +37,7 @@
                             {{ __('Contacto') }}
                         </x-nav-link>
 
-                          
+
                     </div>
 
                     <a href="{{ route('cart.list') }}" class="flex items-center space-x-1">
@@ -62,7 +61,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        
+
                         <button
                             class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <div>{{ Auth::user()->name }}</div>
@@ -118,7 +117,44 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
+
+            {{-- Productos --}}
+            <x-responsive-nav-link :href="route('products.list')" :active="request()->routeIs('products.list')">
+                {{ __('Productos') }}
+            </x-responsive-nav-link>
+
+            {{-- Facturas --}}
+            <x-responsive-nav-link :href="route('facturas')" :active="request()->routeIs('facturas')">
+                {{ __('Facturas') }}
+            </x-responsive-nav-link>
+
+            {{-- Citas --}}
+            <x-responsive-nav-link :href="route('citas.index')" :active="request()->routeIs('citas.index')">
+                {{ __('Citas') }}
+            </x-responsive-nav-link>
+
+            {{-- Contacto --}}
+            <x-responsive-nav-link :href="route('contacto')" :active="request()->routeIs('contacto')">
+                {{ __('Contacto') }}
+            </x-responsive-nav-link>
+
+
+            <a href="{{ route('cart.list') }}" class="flex items-center space-x-1">
+                <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36">
+                    <circle cx="13.5" cy="29.5" r="2.5" fill="currentColor"
+                        class="clr-i-solid clr-i-solid-path-1" />
+                    <circle cx="26.5" cy="29.5" r="2.5" fill="currentColor"
+                        class="clr-i-solid clr-i-solid-path-2" />
+                    <path fill="currentColor"
+                        d="M33.1 6.39a1 1 0 0 0-.79-.39H9.21l-.45-1.43a1 1 0 0 0-.66-.65L4 2.66a1 1 0 1 0-.59 1.92L7 5.68l4.58 14.47l-1.63 1.34l-.13.13A2.66 2.66 0 0 0 9.74 25A2.75 2.75 0 0 0 12 26h16.69a1 1 0 0 0 0-2H11.84a.67.67 0 0 1-.56-1l2.41-2h15.43a1 1 0 0 0 1-.76l3.2-13a1 1 0 0 0-.22-.85Z"
+                        class="clr-i-solid clr-i-solid-path-3" />
+                    <path fill="none" d="M0 0h36v36H0z" />
+                </svg>
+                <span class="text-gray-700">{{ Cart::getTotalQuantity()}}</span>
+            </a>
         </div>
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

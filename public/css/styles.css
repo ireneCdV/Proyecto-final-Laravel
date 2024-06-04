@@ -58,3 +58,8 @@
   .metal-rose-gold:hover {
     transform: scale(1.05);  /* Efecto de escalado al pasar el mouse */
   }
+
+  .border-rose-gold {
+    border: 1px solid #ecb4bc; /* Color del borde dorado */
+    border-radius: 5px; /* Ajusta el radio de la esquina según tu diseño */
+  }

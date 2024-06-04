@@ -10,36 +10,47 @@ use PDF;
 
 class InvoiceController extends Controller
 {
+    /**
+     * Muestra todas las facturas del usuario autenticado.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function mostrarFacturas()
     {
-        // Obtener todas las facturas del usuario logueado
         $facturas = Invoice::where('user_id', Auth::id())->get();
 
-        // Pasar los datos a la vista facturas.blade.php
         return view('facturas', ['facturas' => $facturas]);
     }
 
+    /**
+     * Muestra los detalles de una factura específica del usuario autenticado.
+     *
+     * @param  int  $invoice_id
+     * @return \Illuminate\Contracts\View\View
+     */
     public function detallesFactura($invoice_id)
     {
-        // Obtener la factura específica del usuario logueado
         $factura = Invoice::where('user_id', Auth::id())->findOrFail($invoice_id);
         
-        // Obtener las líneas asociadas a esta factura con los productos relacionados
         $lineas = Line::where('invoice_id', $invoice_id)->with('product')->get();
         
-        // Obtener todas las facturas del usuario logueado
         $facturas = Invoice::where('user_id', Auth::id())->get();
         
-        // Pasar los datos a la vista facturas.blade.php con los detalles de la factura
         return view('facturas', ['facturas' => $facturas, 'factura' => $factura, 'lineas' => $lineas]);
     }
 
-    public function descargarPDF($invoice_id) {
-        // Lógica para obtener los datos de la factura y el usuario
+
+    /**
+     * Descarga el PDF de una factura específica del usuario autenticado.
+     *
+     * @param  int  $invoice_id
+     * @return \Illuminate\Http\Response
+     */
+    public function descargarPDF($invoice_id) 
+    {
         $factura = Invoice::findOrFail($invoice_id);
-        $user = Auth::user(); // Obtiene los datos del usuario autenticado
+        $user = Auth::user(); 
         
-        // Genera el PDF con los datos de la factura y el usuario
         $pdf = PDF::loadView('pdf.invoice', ['invoice' => $factura, 'user' => $user]);
         
         return $pdf->download('invoice.pdf');

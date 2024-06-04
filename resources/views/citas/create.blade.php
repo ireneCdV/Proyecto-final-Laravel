@@ -55,44 +55,14 @@
             </select>
         </div>
         <button type="submit" class="button-gold mt-3">Enviar</button>
-        <a href="{{ url()->previous() }}" class="metal-silver mt-3">Volver</a>
     </form>
+    <br>
+    <a href="{{ url()->previous() }}" class="metal-silver mt-3">Volver</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#date').on('change', function() {
-            var selectedDate = $(this).val();
-    
-            $.ajax({
-                url: "{{ route('available-hours') }}",
-                method: "GET",
-                data: { fecha: selectedDate },
-                success: function(response) {
-                    var timeSelect = $('#time');
-                    timeSelect.empty();
-                    timeSelect.append('<option value="">Seleccione una hora</option>');
-    
-                    // Combina las horas disponibles y ocupadas en un solo conjunto
-                    var allHours = response.availableHours.concat(response.takenHours);
-                    allHours.sort(); // Ordenar las horas para mantener el orden cronológico
-    
-                    allHours.forEach(function(hour) {
-                        if (response.takenHours.includes(hour)) {
-                            timeSelect.append('<option disabled style="color: red;">' + hour + ' (ocupado)</option>');
-                        } else {
-                            timeSelect.append('<option value="' + hour + '">' + hour + '</option>');
-                        }
-                    });
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-    });
-    </script>
-    
-    
+    const availableHoursUrl = "{{ route('available-hours') }}";
+</script>
+<script src="{{ asset('js/citas.js') }}"></script>
 @endsection

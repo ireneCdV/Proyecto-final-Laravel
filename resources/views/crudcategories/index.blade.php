@@ -7,10 +7,10 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>id</th>
-				<th>title</th>
+				<th>Id</th>
+				<th>Titulo</th>
 
-				<th>Action</th>
+				<th>Acción</th>
 			</tr>
 		</thead>
 		<tbody>

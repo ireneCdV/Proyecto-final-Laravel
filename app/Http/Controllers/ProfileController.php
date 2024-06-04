@@ -12,7 +12,10 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Muestra el formulario del perfil del usuario.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
      */
     public function edit(Request $request): View
     {
@@ -22,7 +25,10 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user's profile information.
+     * Actualiza la información del perfil del usuario.
+     *
+     * @param \App\Http\Requests\ProfileUpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -30,7 +36,6 @@ class ProfileController extends Controller
 
         $validatedData = $request->validated();
 
-        // Asegúrate de que los campos adicionales estén presentes en los datos validados
         $additionalFields = ['phone', 'address'];
         foreach ($additionalFields as $field) {
             if (isset($validatedData[$field])) {
@@ -38,15 +43,12 @@ class ProfileController extends Controller
             }
         }
 
-        // Llena el modelo de usuario con los datos validados
         $user->fill($validatedData);
 
-        // Verifica si el correo electrónico ha cambiado para restablecer la verificación del correo electrónico
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
 
-        // Guarda el usuario actualizado en la base de datos
         $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
@@ -54,7 +56,10 @@ class ProfileController extends Controller
 
 
     /**
-     * Delete the user's account.
+     * Elimina la cuenta del usuario.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse
     {

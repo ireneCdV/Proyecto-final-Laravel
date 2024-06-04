@@ -1,53 +1,72 @@
+/* styles.css */
+.container {
+    margin-top: 20px;
+}
 
+h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
 
-.image-scroll {
-    position: fixed;
-    width: 200px; /* Ajusta el ancho según tu diseño */
-    height: calc(100vh - 100px); /* Ajusta la altura según tu diseño */
-    
+p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.image-header-container {
+    display: flex;
     overflow: hidden;
 }
 
-#image-scroll-left {
-    left: 10px; /* Ajusta la posición según tu diseño */
-    top: 50px; /* Ajusta la posición según tu diseño */
+.image-header-container img {
+    height: 200px; /* Ajusta la altura de las imágenes según tu diseño */
+    width: auto; /* Ajusta el ancho de las imágenes según tu diseño */
+    margin-right: 20px; /* Ajusta el margen entre las imágenes según tu diseño */
+    animation: moveImages 20s linear infinite; /* Ajusta la duración de la animación */
 }
 
-#image-scroll-right {
-    right: 10px; /* Ajusta la posición según tu diseño */
-    top: 50px; /* Ajusta la posición según tu diseño */
-}
+    /* Estilos para reducir el tamaño de las imágenes */
+    .carousel-item img {
+        max-width: 100%;
+        height: auto;
+        max-height: 300px; /* ajusta el tamaño según lo necesites */
+        margin: auto;
+    }
 
-.image-container {
-    display: flex;
-    flex-direction: column;
-    animation: scrollImages 30s linear infinite;
-}
-
-.image-container.reverse {
-    animation: scrollImagesReverse 30s linear infinite;
-}
-
-.image-container img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-}
-
-@keyframes scrollImages {
+@keyframes moveImages {
     0% {
-        transform: translateY(100%);
+        transform: translateX(0%);
     }
     100% {
-        transform: translateY(-100%);
+        transform: translateX(-50%); /* Ajusta la cantidad de desplazamiento */
     }
 }
 
-@keyframes scrollImagesReverse {
-    0% {
-        transform: translateY(-100%);
-    }
-    100% {
-        transform: translateY(100%);
-    }
+
+
+
+/* citas/Show.blade.php */
+.tarjeta {
+    background-image: url('/imagenes/vercita.jpg'); 
+    background-position-x: 50%;
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    height: 300px; /* Altura deseada de la imagen de fondo */
+    width: 1000px; /* Ancho deseado de la imagen de fondo */
+    font-size: 18px;
+    color: black;
+    display: flex; /* Activa Flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    text-align: center; /* Asegura que el texto dentro de los divs también se centre */
+}
+.tarjeta > div {
+    max-width: 80%; /* Ajusta el ancho máximo del contenido */
+}
+
+.parrafo-tarjeta{
+    font-size: 18px;
+    
 }

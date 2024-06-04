@@ -13,19 +13,19 @@
 	{{ Form::model($crudadmin, array('route' => array('crudadmins.update', $crudadmin->id), 'method' => 'PUT')) }}
 
 		<div class="mb-3">
-			{{ Form::label('name', 'Name', ['class'=>'form-label']) }}
+			{{ Form::label('name', 'Nombre', ['class'=>'form-label']) }}
 			{{ Form::text('name', null, array('class' => 'form-control')) }}
 		</div>
 		<div class="mb-3">
-			{{ Form::label('surname', 'Surname', ['class'=>'form-label']) }}
+			{{ Form::label('surname', 'Apellidos', ['class'=>'form-label']) }}
 			{{ Form::text('surname', null, array('class' => 'form-control')) }}
 		</div>
 		<div class="mb-3">
-			{{ Form::label('phone', 'Phone', ['class'=>'form-label']) }}
+			{{ Form::label('phone', 'Telefono', ['class'=>'form-label']) }}
 			{{ Form::text('phone', null, array('class' => 'form-control')) }}
 		</div>
 		<div class="mb-3">
-			{{ Form::label('address', 'Address', ['class'=>'form-label']) }}
+			{{ Form::label('address', 'Apellidos', ['class'=>'form-label']) }}
 			{{ Form::text('address', null, array('class' => 'form-control')) }}
 		</div>
 		<div class="mb-3">
@@ -37,18 +37,18 @@
 			{{ Form::text('email', null, array('class' => 'form-control')) }}
 		</div>
 		<div class="mb-3">
-			{{ Form::label('password', 'Password', ['class'=>'form-label']) }}
+			{{ Form::label('password', 'Contraseña', ['class'=>'form-label']) }}
 			{{ Form::text('password', null, array('class' => 'form-control')) }}
 		</div>
 		<div class="mb-3">
-			{{ Form::label('cod_admin', 'Cod_admin', ['class'=>'form-label']) }}
+			{{ Form::label('cod_admin', 'Codigo de administrador', ['class'=>'form-label']) }}
 			{{ Form::text('cod_admin', null, array('class' => 'form-control')) }}
 		</div>
 
-		{{ Form::submit('Editar', array('class' => 'btn', 'style' => 'background-color: ##0D6EFD')) }}
-		<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
-
+		{{ Form::submit('Editar', array('class' => 'btn btn-primary')) }}
 		
 
 	{{ Form::close() }}
+
+	<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 @stop

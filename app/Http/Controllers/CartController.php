@@ -8,23 +8,30 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
 
+    /**
+     * Muestra los elementos del carrito.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function showCart()
     {
-        // Obtener todos los elementos del carrito
         $cartItems = \Cart::getContent();
     
-        // Calcular el total del carrito
         $total = \Cart::getTotal();
     
-        // Puedes iterar sobre $cartItems para mostrar cada elemento en tu vista
         return view('cart', ['cartItems' => $cartItems, 'total' => $total]);
     }
 
+
+    /**
+     * Muestra la lista de elementos del carrito.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function cartList()
     {
         $cartItems = \Cart::getContent();
 
-        // Verificar si el carrito está vacío
         if ($cartItems->isEmpty()) {
             session()->flash('warning', 'El carrito está vacío.');
         }
@@ -33,6 +40,12 @@ class CartController extends Controller
     }
     
 
+    /**
+     * Agrega un producto al carrito.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addToCart(Request $request)
     {
         \Cart::add([
@@ -52,19 +65,22 @@ class CartController extends Controller
     }
 
 
-    
+    /**
+     * Actualiza la cantidad de un producto en el carrito.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateCart(Request $request)
     {
         $product = Product::findOrFail($request->id);
         
-        // Verificar si la cantidad es menor o igual a cero
         if ($request->quantity <= 0) {
             \Cart::remove($request->id);
             session()->flash('success', 'El producto se eliminó del carrito');
             return redirect()->route('cart.list');
         }
     
-        // Verificar si el producto está en stock
         if ($request->quantity > $product->stock) {
             if ($product->stock == 0) {
                 return redirect()->back()->with('error', '¡Lo sentimos, este producto está agotado!');
@@ -85,6 +101,12 @@ class CartController extends Controller
         return redirect()->route('cart.list');
     }
 
+    /**
+     * Elimina un producto del carrito.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function removeCart(Request $request)
     {
         \Cart::remove($request->id);
@@ -92,6 +114,11 @@ class CartController extends Controller
         return redirect()->route('cart.list');
     }
 
+    /**
+     * Vacía el carrito entero.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function clearAllCart()
     {
         \Cart::clear();

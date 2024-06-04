@@ -1,4 +1,5 @@
 <x-app-layout>
+    <script src="{{ asset('js/audioCart.js') }}"></script>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <main class="my-8 bg-gray-100 text-gray-900">
         <div class="container px-6 mx-auto">
@@ -104,7 +105,7 @@
             </div>
         </div>
     </main>
-    <script>
+{{--     <script>
         function playSoundAndSubmit() {
             var audio = new Audio('{{ asset('sounds/sound-effect-dinero.mp3') }}');
             audio.play();
@@ -112,5 +113,5 @@
                 document.getElementById('checkoutForm').submit();
             };
         }
-    </script>
+    </script> --}}
 </x-app-layout>

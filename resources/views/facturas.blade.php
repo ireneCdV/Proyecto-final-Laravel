@@ -1,12 +1,16 @@
 <x-app-layout>
+    
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <script defer src="{{ asset('js/facturas.js') }}"></script> 
+    <link href="{{ asset('css/facturas.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/facturas/facturas.css') }}" rel="stylesheet">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Facturas') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12 background-animation">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -60,18 +64,6 @@
         </div>
     </div>
 
-    <script>
-        document.querySelectorAll('.mostrar-detalles-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const detallesFactura = btn.parentNode.querySelector('.detalles-factura');
-                if (detallesFactura.style.display === 'none' || detallesFactura.style.display === '') {
-                    detallesFactura.style.display = 'block';
-                } else {
-                    detallesFactura.style.display = 'none';
-                }
-            });
-        });
-    </script>
 
-    <link href="{{ asset('css/facturas.css') }}" rel="stylesheet">
+    
 </x-app-layout>

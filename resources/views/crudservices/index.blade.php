@@ -3,16 +3,16 @@
 @section('content')
 <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
-	<div class="d-flex justify-content-end mb-3"><a href="{{ route('crudservices.create') }}" class="btn btn-info">Create</a></div>
+	<div class="d-flex justify-content-end mb-3"><a href="{{ route('crudservices.create') }}" class="btn btn-info">Nuevo Servicio</a></div>
 
 	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th>id</th>
-				<th>name</th>
-				<th>price</th>
+				<th>Nombre</th>
+				<th>Precio</th>
 
-				<th>Action</th>
+				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -42,5 +42,5 @@
 			@endforeach
 		</tbody>
 	</table>
-
+	<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 @stop

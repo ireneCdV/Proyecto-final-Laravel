@@ -1,6 +1,7 @@
 @extends('default')
 
 @section('content')
+<script src="{{ asset('js/crudAdmin.js') }}"></script>
 
 <div class="d-flex justify-content-end mb-3"><a href="{{ route('crudadmins.create') }}" class="btn btn-info">Nuevo Admin</a></div>
 
@@ -15,7 +16,7 @@
             <th>DNI</th>
             <th>Email</th>
             {{-- <th>Cod_admin</th> --}}
-            <th>Action</th>
+            <th>Accion</th>
         </tr>
     </thead>
     <tbody>
@@ -56,11 +57,5 @@
 </table>
 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 
-<script>
-    function showDeleteForm(adminId) {
-        var form = document.getElementById('delete-form-' + adminId);
-        form.style.display = 'block';
-    }
-</script>
 
 @stop

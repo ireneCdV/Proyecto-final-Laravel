@@ -13,12 +13,15 @@
 	{{ Form::model($crudcategory, array('route' => array('crudcategories.update', $crudcategory->id), 'method' => 'PUT')) }}
 
 		<div class="mb-3">
-			{{ Form::label('title', 'Title', ['class'=>'form-label']) }}
+			{{ Form::label('title', 'Titulo', ['class'=>'form-label']) }}
 			{{ Form::text('title', null, array('class' => 'form-control')) }}
 		</div>
 
-		{{ Form::submit('Editar', array('class' => 'btn', 'style' => 'background-color: #0D6EFD')) }}
-		<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
+		{{ Form::submit('Editar', array('class' => 'btn btn-primary')) }}
+
+		
 
 	{{ Form::close() }}
+
+	<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 @stop

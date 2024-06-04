@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function(){
 Route::get('/available-hours', [CitasController::class, 'getAvailableHours'])->name('available-hours');
 
 
+
 //CRUD  ADMINS
 Route::middleware('auth')->group(function(){
     Route::resource('crudadmins', CrudAdminsController::class);
@@ -86,11 +87,11 @@ Route::middleware('auth')->group(function(){
     Route::resource('crudproducts', CrudProductsController::class);
 });
 
-//CRUD  Categorias
+//CRUD  Citas
 Route::middleware('auth')->group(function(){
     Route::resource('crudcitas', CrudCitasController::class);
 });
-
+Route::get('/available-hours', [CrudCitasController::class, 'getAvailableHours'])->name('available-hours');
 
 // Rutas de inicio de sesión para usuarios y trabajadores
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])

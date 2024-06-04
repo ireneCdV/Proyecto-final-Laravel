@@ -3,7 +3,7 @@
 @section('content')
 <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
-	<div class="d-flex justify-content-end mb-3"><a href="{{ route('crudproducts.create') }}" class="btn btn-info">Create</a></div>
+	<div class="d-flex justify-content-end mb-3"><a href="{{ route('crudproducts.create') }}" class="btn btn-info">Añadir Producto</a></div>
 
 	<div class="mb-4">
         <form method="GET" action="{{ route('crudproducts.index') }}">
@@ -23,9 +23,9 @@
         </form>
     </div>
 
-	<table class="table table-bordered">
+	<table class="table table-bordered" style="text-align: center">
 		<thead>
-			<tr>
+			<tr >
 				<th>id</th>
 				<th>Imagen</th>
 				<th>Nombre</th>
@@ -33,9 +33,9 @@
 				<th>Precio</th>
 				<th>Stock</th>
 				<th>Marca</th>
-				<th>Id Categoria</th>
+				<th>Categoria</th>
 
-				<th>Action</th>
+				<th>Accion</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -70,5 +70,7 @@
 			@endforeach
 		</tbody>
 	</table>
+	{{-- Botón para volver a la página anterior --}}
+	<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 
 @stop

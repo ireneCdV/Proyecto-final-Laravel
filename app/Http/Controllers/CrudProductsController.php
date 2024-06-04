@@ -14,16 +14,17 @@ use Storage;
 class CrudProductsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de los recursos.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
-        // Inicializar la consulta de productos
+        
         $products = Product::query();
         
-        // Ordenar los productos
+        
         if ($request->has('orderBy')) {
             $orderBy = $request->input('orderBy');
             if ($orderBy === 'stock_desc') {
@@ -35,32 +36,32 @@ class CrudProductsController extends Controller
             }
         }
         
-        // Obtener todos los productos paginados
+        
         $crudproducts = $products->get();
 
         return view('crudproducts.index', compact('crudproducts'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Contracts\View\View
      */
     public function create()
-{
-    $categories = Category::all();
-    return view('crudproducts.create', compact('categories'));
-}
+    {
+        $categories = Category::all();
+        return view('crudproducts.create', compact('categories'));
+    }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo recurso en el almacenamiento.
      *
-     * @param  CrudProductRequest  $request
+     * @param  \App\Http\Requests\CrudProductRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CrudProductRequest $request)
     {
-        // Procesar la imagen
+        
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -69,7 +70,6 @@ class CrudProductsController extends Controller
             $imagePath = 'default-image.jpg'; // Asumiendo que tienes una imagen predeterminada
         }
     
-        // Crear un nuevo producto con los datos del formulario y la ruta de la imagen
         $crudproduct = new Product;
         $crudproduct->image = $imagePath;
         $crudproduct->name = $request->input('name');
@@ -80,15 +80,13 @@ class CrudProductsController extends Controller
         $crudproduct->category_id = $request->input('category_id');
         $crudproduct->save();
     
-        // Crear un registro en la tabla pivote con las unidades introducidas
-        $units = $request->input('units') ?? 0; // Si units es null, asignar 0
+        $units = $request->input('units') ?? 0; 
         $crudproduct->users()->attach(auth()->user()->id, [
             'date' => now(),
             'units' => $units,
-            'old_stock' => 0 // El stock antiguo es 0 ya que es un producto nuevo
+            'old_stock' => 0 
         ]);
     
-        // Actualizar el stock del producto
         $crudproduct->stock += $units;
         $crudproduct->save();
     
@@ -96,7 +94,7 @@ class CrudProductsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
@@ -108,7 +106,7 @@ class CrudProductsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
@@ -116,14 +114,14 @@ class CrudProductsController extends Controller
     public function edit($id)
     {
         $crudproduct = Product::findOrFail($id);
-        $categories = Category::all(); // Obtener todas las categorías
+        $categories = Category::all();
         return view('crudproducts.edit', ['crudproduct' => $crudproduct, 'categories' => $categories]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso especificado en el almacenamiento.
      *
-     * @param  CrudProductRequest  $request
+     * @param  \App\Http\Requests\CrudProductRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -131,13 +129,11 @@ class CrudProductsController extends Controller
     {
         $crudproduct = Product::findOrFail($id);
         
-        // Procesar la nueva imagen si se proporciona
         if ($request->hasFile('new_image')) {
             $image = $request->file('new_image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = $image->storeAs('images', $imageName, 'public');
     
-            // Eliminar la imagen anterior si existe y no es la predeterminada
             if ($crudproduct->image !== 'default-image.jpg' && Storage::disk('public')->exists($crudproduct->image)) {
                 Storage::disk('public')->delete($crudproduct->image);
             }
@@ -145,35 +141,30 @@ class CrudProductsController extends Controller
             $crudproduct->image = $imagePath;
         }
     
-        // Actualizar los demás campos del producto
         $crudproduct->name = $request->input('name');
         $crudproduct->description = $request->input('description');
         $crudproduct->price = $request->input('price');
         $crudproduct->brand = $request->input('brand');
         $crudproduct->category_id = $request->input('category_id');
     
-        // Obtener el stock actual antes de actualizar
         $oldStock = $crudproduct->stock;
     
-        // Sumar las unidades proporcionadas al stock actual del producto
-        $unitsToAdd = $request->input('units') ?? 0; // Si units es null, asignar 0
+        $unitsToAdd = $request->input('units') ?? 0;
         $crudproduct->stock += $unitsToAdd;
     
-        // Guardar el producto actualizado
         $crudproduct->save();
     
-        // Crear un registro en la tabla pivote con las unidades introducidas
         $crudproduct->users()->attach(auth()->user()->id, [
             'date' => now(),
             'units' => $unitsToAdd,
-            'old_stock' => $oldStock // El stock antiguo es el valor antes de la actualización
+            'old_stock' => $oldStock
         ]);
     
         return redirect()->route('crudproducts.index')->with('success', 'Producto actualizado correctamente.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso especificado del almacenamiento.
      *
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse

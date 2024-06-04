@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 class PedirCitaController extends Controller
 {
+    /**
+     * Muestra el formulario para pedir una cita.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function create()
     {
-        // Aquí colocarías la lógica para mostrar el formulario de pedir cita
         return view('pedir-cita');
     }
 }

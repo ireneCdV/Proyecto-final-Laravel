@@ -9,48 +9,43 @@ use App\Http\Requests\CrudCitaRequest;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 
 class CrudCitasController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de recursos.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
-        // Crear la consulta base con relaciones
         $query = Cita::with(['usuario', 'service']);
     
-        // Filtrar por rango de fechas si están presentes
         if ($request->filled('start_date') && $request->filled('end_date')) {
             $query->whereBetween('fecha', [$request->start_date, $request->end_date]);
         }
     
-        // Filtrar por estado si está presente y no está vacío
         if ($request->filled('estado')) {
             if ($request->estado === '') {
-                // Mostrar citas abiertas y pasadas
                 $query->where(function($q) {
-                    $q->where('estado', 1) // Abiertas
-                      ->orWhere('fecha', '<', now()); // Pasadas
+                    $q->where('estado', 1)
+                      ->orWhere('fecha', '<', now());
                 });
             } else {
-                // Filtrar por el estado específico
                 $query->where('estado', $request->estado);
             }
         }
     
-        // Obtener los resultados de la consulta
         $crudcitas = $query->get();
     
-        // Retornar la vista con los resultados
         return view('crudcitas.index', ['crudcitas' => $crudcitas]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -60,7 +55,7 @@ class CrudCitasController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un recurso recién creado en el almacenamiento.
      *
      * @param  CrudCitaRequest  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -78,22 +73,20 @@ class CrudCitasController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
      */
     public function show($id)
-{
-    // Buscar la cita por su ID con la relación cargada
-    $crudcita = Cita::with('usuario')->findOrFail($id);
+    {
+        $crudcita = Cita::with('usuario')->findOrFail($id);
 
-    // Retornar la vista con los datos de la cita y el usuario
-    return view('crudcitas.show', compact('crudcita'));
-}
+        return view('crudcitas.show', compact('crudcita'));
+    }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
@@ -101,13 +94,18 @@ class CrudCitasController extends Controller
     public function edit($id)
     {
         $crudcita = Cita::findOrFail($id);
-        $services = Service::all(); // Suponiendo que tienes un modelo llamado Service para gestionar los servicios
-        $users = User::all(); // Suponiendo que tienes un modelo llamado User para gestionar los usuarios
+
+        if ($crudcita->fecha < now() || ($crudcita->fecha == now()->toDateString() && $crudcita->hora < now()->format('H:i'))) {
+            return redirect()->route('crudcitas.index')->with('error', 'No puedes editar una cita que ya ha pasado.');
+        }
+
+        $services = Service::all();
+        $users = User::all();
         return view('crudcitas.edit', ['crudcita' => $crudcita, 'services' => $services, 'users' =>$users]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso especificado en el almacenamiento.
      *
      * @param  CrudCitaRequest  $request
      * @param  int  $id
@@ -117,24 +115,26 @@ class CrudCitasController extends Controller
     {
         $crudcita = Cita::findOrFail($id);
 
-        // Guarda los cambios en la cita
+        if ($crudcita->fecha < now() || ($crudcita->fecha == now()->toDateString() && $crudcita->hora < now()->format('H:i'))) {
+            throw ValidationException::withMessages(['error' => 'No puedes editar una cita que ya ha pasado.']);
+        }
+
         $crudcita->fecha = $request->input('fecha');
         $crudcita->hora = $request->input('hora');
         $crudcita->servicio_id = $request->input('servicio_id');
         $crudcita->user_id = $request->input('user_id');
         $crudcita->save();
 
-        // Inserta un nuevo registro en la tabla pivot user_cites
         DB::table('user_cites')->insert([
-            'user_id' => auth()->id(), // ID del usuario que ha actualizado la cita
-            'cite_id' => $crudcita->id // ID de la cita actualizada
+            'user_id' => auth()->id(), 
+            'cite_id' => $crudcita->id 
         ]);
 
         return redirect()->route('crudcitas.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso especificado del almacenamiento.
      *
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
@@ -143,16 +143,43 @@ class CrudCitasController extends Controller
     {
         $crudcita = Cita::findOrFail($id);
 
-        // Inserta un nuevo registro en la tabla pivot user_cites para la eliminación
         DB::table('user_cites')->insert([
-            'user_id' => auth()->id(), // ID del usuario que ha eliminado la cita
-            'cite_id' => $crudcita->id // ID de la cita eliminada
+            'user_id' => auth()->id(), 
+            'cite_id' => $crudcita->id 
         ]);
 
-        // Elimina la cita
         $crudcita->delete();
 
         return redirect()->route('crudcitas.index');
+    }
+
+
+    /**
+     * Obtiene las horas disponibles para una fecha específica.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAvailableHours(Request $request)
+    {
+        $date = $request->query('fecha');
+        $citaId = $request->query('cita_id');
+        $allHours = [
+            '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
+            '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'
+        ];
+
+        $takenHoursQuery = Cita::where('fecha', $date);
+        if ($citaId) {
+            $takenHoursQuery->where('id', '!=', $citaId); 
+        }
+        $takenHours = $takenHoursQuery->pluck('hora')->toArray();
+        $availableHours = array_diff($allHours, $takenHours);
+    
+        return response()->json([
+            'availableHours' => $availableHours,
+            'takenHours' => $takenHours
+        ]);
     }
 
     

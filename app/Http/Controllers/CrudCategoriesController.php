@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class CrudCategoriesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de recursos.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -23,7 +23,7 @@ class CrudCategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -33,7 +33,7 @@ class CrudCategoriesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un recurso recién creado en el almacenamiento.
      *
      * @param  CrudCategoryRequest  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -44,17 +44,16 @@ class CrudCategoriesController extends Controller
         $crudcategory->title = $request->input('title');
         $crudcategory->save();
 
-        // Almacena la relación en la tabla pivot user_category
         DB::table('user_category')->insert([
-            'user_id' => auth()->id(), // ID del usuario que ha creado la categoría
-            'category_id' => $crudcategory->id // ID de la categoría recién creada
+            'user_id' => auth()->id(), 
+            'category_id' => $crudcategory->id 
         ]);
 
         return redirect()->route('crudcategories.index');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
@@ -66,7 +65,7 @@ class CrudCategoriesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
@@ -78,7 +77,7 @@ class CrudCategoriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso especificado en el almacenamiento.
      *
      * @param  CrudCategoryRequest  $request
      * @param  int  $id
@@ -88,21 +87,19 @@ class CrudCategoriesController extends Controller
     {
         $crudcategory = Category::findOrFail($id);
         
-        // Guarda los cambios en la categoría
         $crudcategory->title = $request->input('title');
         $crudcategory->save();
 
-        // Inserta un nuevo registro en la tabla pivot user_category
         DB::table('user_category')->insert([
-            'user_id' => auth()->id(), // ID del usuario que ha actualizado la categoría
-            'category_id' => $crudcategory->id // ID de la categoría actualizada
+            'user_id' => auth()->id(), 
+            'category_id' => $crudcategory->id 
         ]);
 
         return redirect()->route('crudcategories.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso especificado del almacenamiento.
      *
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
@@ -111,13 +108,11 @@ class CrudCategoriesController extends Controller
     {
         $crudcategory = Category::findOrFail($id);
         
-        // Inserta un nuevo registro en la tabla pivot user_category para la eliminación
         DB::table('user_category')->insert([
-            'user_id' => auth()->id(), // ID del usuario que ha eliminado la categoría
-            'category_id' => $crudcategory->id // ID de la categoría eliminada
+            'user_id' => auth()->id(), 
+            'category_id' => $crudcategory->id 
         ]);
 
-        // Elimina la categoría
         $crudcategory->delete();
 
         return redirect()->route('crudcategories.index');

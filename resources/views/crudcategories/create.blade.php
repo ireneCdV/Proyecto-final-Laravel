@@ -13,15 +13,17 @@
 	{!! Form::open(['route' => 'crudcategories.store']) !!}
 
 		<div class="mb-3">
-			{{ Form::label('title', 'Title', ['class'=>'form-label']) }}
+			{{ Form::label('title', 'Titulo', ['class'=>'form-label']) }}
 			{{ Form::text('title', null, array('class' => 'form-control')) }}
 		</div>
 
 
 		{{ Form::submit('Crear', array('class' => 'btn btn-primary')) }}
-		<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
+		
 
 	{{ Form::close() }}
+
+	<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 
 
 @stop

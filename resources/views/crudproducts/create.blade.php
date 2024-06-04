@@ -16,32 +16,32 @@
 
         <div class="mb-3">
             <div class="mb-3">
-                {{ Form::label('image', 'Image', ['class'=>'form-label']) }}
+                {{ Form::label('image', 'Imagen', ['class'=>'form-label']) }}
                 {{ Form::file('image', array('class' => 'form-control')) }}
             </div>
         </div>
         <div class="mb-3">
-            {{ Form::label('name', 'Name', ['class'=>'form-label']) }}
+            {{ Form::label('name', 'Nombre', ['class'=>'form-label']) }}
             {{ Form::text('name', null, array('class' => 'form-control')) }}
         </div>
         <div class="mb-3">
-            {{ Form::label('description', 'Description', ['class'=>'form-label']) }}
+            {{ Form::label('description', 'Descripcion', ['class'=>'form-label']) }}
             {{ Form::text('description', null, array('class' => 'form-control')) }}
         </div>
         <div class="mb-3">
-            {{ Form::label('price', 'Price', ['class'=>'form-label']) }}
+            {{ Form::label('price', 'Precio', ['class'=>'form-label']) }}
             {{ Form::text('price', null, array('class' => 'form-control')) }}
         </div>
         <div class="mb-3">
-			{{ Form::label('units', 'Units', ['class'=>'form-label']) }}
+			{{ Form::label('units', 'Unidades', ['class'=>'form-label']) }}
 			{{ Form::text('units', null, array('class' => 'form-control')) }}
 		</div>		
         <div class="mb-3">
-            {{ Form::label('brand', 'Brand', ['class'=>'form-label']) }}
+            {{ Form::label('brand', 'Marca', ['class'=>'form-label']) }}
             {{ Form::text('brand', null, array('class' => 'form-control')) }}
         </div>
         <div class="mb-3">
-            {{ Form::label('category_id', 'Category', ['class'=>'form-label']) }}
+            {{ Form::label('category_id', 'Categoria', ['class'=>'form-label']) }}
             <select name="category_id" id="category_id" class="form-control">
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->title }}</option>
@@ -52,6 +52,8 @@
         {{ Form::submit('Crear', array('class' => 'btn btn-primary')) }}
 
     {!! Form::close() !!}
+    {{-- Botón para volver a la página anterior --}}
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 
 
 @stop

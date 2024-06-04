@@ -9,6 +9,8 @@
 	<p>Email: {{ $crudadmin->email }}</p>
 	<p>Direccion: {{ $crudadmin->address }}</p>
 	<p>Telefono: {{ $crudadmin->phone }}</p>
+	<p>DNI: {{ $crudadmin->dni }}</p>
+	
 	
 
 	<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>

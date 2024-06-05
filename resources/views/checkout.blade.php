@@ -23,7 +23,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    <!-- Mostrar el total del pedido -->
+                    
                     <div class="font-semibold text-2xl">Total: {{ Cart::getTotal() }}€</div>
 
                     <!-- Información del usuario registrado -->

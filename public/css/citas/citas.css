@@ -1,4 +1,4 @@
-/* styles.css */
+
 .container {
     margin-top: 20px;
 }
@@ -22,17 +22,17 @@ p {
 }
 
 .image-header-container img {
-    height: 200px; /* Ajusta la altura de las imágenes según tu diseño */
-    width: auto; /* Ajusta el ancho de las imágenes según tu diseño */
-    margin-right: 20px; /* Ajusta el margen entre las imágenes según tu diseño */
-    animation: moveImages 20s linear infinite; /* Ajusta la duración de la animación */
+    height: 200px; 
+    width: auto; 
+    margin-right: 20px; 
+    animation: moveImages 20s linear infinite; 
 }
 
     /* Estilos para reducir el tamaño de las imágenes */
     .carousel-item img {
         max-width: 100%;
         height: auto;
-        max-height: 300px; /* ajusta el tamaño según lo necesites */
+        max-height: 300px; 
         margin: auto;
     }
 
@@ -41,7 +41,7 @@ p {
         transform: translateX(0%);
     }
     100% {
-        transform: translateX(-50%); /* Ajusta la cantidad de desplazamiento */
+        transform: translateX(-50%);
     }
 }
 
@@ -52,18 +52,18 @@ p {
 .tarjeta {
     background-image: url('/imagenes/vercita.jpg'); 
     background-position-x: 50%;
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    height: 300px; /* Altura deseada de la imagen de fondo */
-    width: 1000px; /* Ancho deseado de la imagen de fondo */
+    background-repeat: no-repeat; 
+    height: 300px; 
+    width: 1000px; 
     font-size: 18px;
     color: black;
-    display: flex; /* Activa Flexbox */
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    text-align: center; /* Asegura que el texto dentro de los divs también se centre */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
 }
 .tarjeta > div {
-    max-width: 80%; /* Ajusta el ancho máximo del contenido */
+    max-width: 80%; 
 }
 
 .parrafo-tarjeta{

@@ -57,10 +57,47 @@
         <a href="{{ url()->previous() }}" class="metal-silver mt-3">Volver</a>
     </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    const availableHoursUrl = "{{ route('available-hours') }}";
-    const citaId = "{{ $cita->id }}";
+    $(document).ready(function() {
+        function loadAvailableHours() {
+            var selectedDate = $('#date').val();
+            var citaId = "{{ $cita->id }}"; 
+            $.ajax({
+                url: "{{ route('available-hours') }}",
+                method: "GET",
+                data: {
+                    fecha: selectedDate,
+                    cita_id: citaId
+                },
+                success: function(response) {
+                    var timeSelect = $('#time');
+                    timeSelect.empty();
+                    timeSelect.append('<option value="">Seleccione una hora</option>');
+                    var allHours = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
+                                    '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'];
+                    allHours.forEach(function(hour) {
+                        if (response.takenHours.includes(hour)) {
+                            if (hour === "{{ $cita->hora }}") {
+                                timeSelect.append('<option value="' + hour + '" selected>' + hour + ' (ocupado)</option>');
+                            } else {
+                                timeSelect.append('<option value="' + hour + '" disabled>' + hour + ' (ocupado)</option>');
+                            }
+                        } else {
+                            timeSelect.append('<option value="' + hour + '">' + hour + '</option>');
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+        $('#date').on('change', function() {
+            loadAvailableHours();
+        });
+        
+        loadAvailableHours();
+    });
 </script>
-<script src="{{ asset('js/citas.js') }}"></script>
 @endsection

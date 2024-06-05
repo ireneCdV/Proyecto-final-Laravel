@@ -17,6 +17,8 @@
 <div class="mb-3">
 	{{ Form::label('user_name', 'Usuario', ['class'=>'form-label']) }}
 	{{ Form::text('user_name', $crudcita->usuario->name, ['class' => 'form-control', 'readonly']) }}
+    {{ Form::hidden('user_id', $crudcita->usuario->id) }}
+
 </div>
 
 <div class="mb-3">
@@ -75,7 +77,7 @@ $(document).ready(function() {
         });
     });
 
-    // Cargar las horas disponibles al cargar la página
+    
     $('#fecha').trigger('change');
 });
 </script>

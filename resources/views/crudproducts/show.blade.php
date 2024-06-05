@@ -16,7 +16,8 @@
                 <p style="margin-bottom: 20px;"><strong>Precio:</strong> {{ $crudproduct->price }}€</p>
                 <p style="margin-bottom: 20px;"><strong>Stock:</strong> {{ $crudproduct->stock }} unidades</p>
                 <p style="margin-bottom: 20px;"><strong>Marca:</strong> {{ $crudproduct->brand }}</p>
-                <p style="margin-bottom: 20px;"><strong>Categoria:</strong> {{ $crudproduct->category->title }}</p>
+                <p style="margin-bottom: 20px;"><strong>Categoria:</strong> {{ optional($crudproduct->category)->title ?? 'Sin categoría' }}</p>
+
                 
                 
                 

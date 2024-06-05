@@ -43,7 +43,7 @@ window.onload = function() {
         let icono = document.getElementById(`icono-${productoId}`);
 
         if (favoritos.includes(productoId)) {
-            icono.textContent = '\u2764'; // ❤️
+            icono.textContent = '\u2764'; 
             icono.classList.remove('desmarcado');
             icono.classList.add('marcado');
         } else {

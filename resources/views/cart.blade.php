@@ -105,13 +105,5 @@
             </div>
         </div>
     </main>
-{{--     <script>
-        function playSoundAndSubmit() {
-            var audio = new Audio('{{ asset('sounds/sound-effect-dinero.mp3') }}');
-            audio.play();
-            audio.onended = function() {
-                document.getElementById('checkoutForm').submit();
-            };
-        }
-    </script> --}}
+
 </x-app-layout>

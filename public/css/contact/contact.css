@@ -5,9 +5,9 @@ h1, h2{
 /* color fondo tarjeta */
 .custom-bg {
     padding: 10px;
-    background-color: #c3c9d1; /* Este es un ejemplo de gris claro, ajusta el código de color como necesites */
-    border: 1px solid #D4AF37; /* Color del borde dorado */
-    border-radius: 5px; /* Ajusta el radio de la esquina según tu diseño */
+    background-color: #c3c9d1; 
+    border: 1px solid #D4AF37; 
+    border-radius: 5px; 
 }
 
 .custom-bg h5{
@@ -18,31 +18,31 @@ h1, h2{
 /* Estilos para el formulario */
 .formulario {
     text-align: center;
-    border: 1px solid #D4AF37; /* Color del borde dorado */
-    border-radius: 5px; /* Ajusta el radio de la esquina según tu diseño */
+    border: 1px solid #D4AF37; 
+    border-radius: 5px; 
     padding: 20px;
 }
 
 /* Estilos para etiquetas de formulario */
 .formulario label {
-    display: block; /* Para que cada etiqueta y campo de entrada estén en una línea separada */
-    margin-bottom: 10px; /* Espacio entre cada etiqueta y campo de entrada */
+    display: block; 
+    margin-bottom: 10px; 
 }
 
 /* Estilos para campos de entrada y área de texto */
 .formulario input,
 .formulario textarea {
-    width: calc(100% - 20px); /* Ajusta el ancho del campo de entrada o área de texto (tamaño del formulario - padding) */
-    padding: 5px; /* Espacio de relleno interno */
-    border-radius: 5px; /* Borde redondeado */
-    border: 1px solid #ccc; /* Color del borde */
-    box-sizing: border-box; /* Incluye el relleno y el borde en el ancho total */
+    width: calc(100% - 20px); 
+    padding: 5px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
 }
 
 /* Color para iconos */
 .metal-gold {
-    color: #D4AF37; /* Color dorado metalizado */
-    margin-right: 5px; /* Ajusta el margen a tu preferencia */
+    color: #D4AF37; 
+    margin-right: 5px; 
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5), 
                  -1px -1px 2px rgba(0, 0, 0, 0.3);
 }

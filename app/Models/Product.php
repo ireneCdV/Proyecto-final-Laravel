@@ -37,4 +37,5 @@ class Product extends Model
                     ->withPivot(['units', 'date'])
                     ->withTimestamps();
     }
+    
 }

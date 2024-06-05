@@ -17,7 +17,7 @@ return new class extends Migration
             $table->time('hora');
             $table->integer('servicio_id');
             $table->integer('user_id');
-            $table->boolean('estado')->default(true); //valor predeterminado "abierta"
+            $table->boolean('estado')->default(true); //valor predeterminado "pendiente"
             $table->boolean('notificado')->default(false); //Notificacion
             $table->timestamps();
         });

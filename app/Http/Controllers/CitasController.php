@@ -77,11 +77,11 @@ class CitasController extends Controller
                     $existingCita = Cita::where('fecha', $request->input('fecha'))
                      ->where('hora', $request->input('hora'))
                      ->exists();
-
+    
                     if ($existingCita) {
                         $fail('Ya existe una cita programada para esta fecha y hora.');
                     }
-
+    
                     $currentDateTime = now();
                     $selectedDateTime = \Carbon\Carbon::parse($request->input('fecha') . ' ' . $value);
                     if ($selectedDateTime->lte($currentDateTime->addHour())) {
@@ -94,24 +94,26 @@ class CitasController extends Controller
             'fecha.after_or_equal' => 'El día seleccionado ya ha pasado.',
             'hora.required' => 'El campo hora es obligatorio.',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+    
         $cita = new Cita;
         $cita->fecha = $request->input('fecha');
         $cita->hora = $request->input('hora');
         $cita->servicio_id = $request->input('servicio_id');
         $cita->user_id = Auth::user()->id; 
         $cita->save();
-
+    
         $cita->load('usuario');
-
+    
         SendAppointmentConfirmation::dispatch($cita);
-
+    
         return redirect()->route('citas.index')->with('success', 'Cita creada y correo enviado.');
     }
+    
+    
     
 
     /**

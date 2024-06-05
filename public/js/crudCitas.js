@@ -1,7 +1,7 @@
-// crudCitas.js
+
 
 document.getElementById('update-citas-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evitar el envío del formulario por defecto
+    event.preventDefault(); // Evita el envío del formulario por defecto
 
     // Realizar una solicitud AJAX
     fetch(this.action, {

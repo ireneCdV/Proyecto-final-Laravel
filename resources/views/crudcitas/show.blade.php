@@ -12,7 +12,7 @@
                 <p><strong>Nombre:</strong> {{ $crudcita->usuario->name }}</p>
 				<p><strong>Telefono:</strong> {{ $crudcita->usuario->phone }}</p>
                 <p><strong>Email:</strong> {{ $crudcita->usuario->email }}</p>
-                <!-- Agrega más campos del usuario si los necesitas -->
+                
             @else
                 <p>No se encontró información del usuario.</p>
             @endif

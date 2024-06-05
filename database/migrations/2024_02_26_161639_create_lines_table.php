@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('amount'); //catidad
+            $table->unsignedBigInteger('amount'); //cantidad
             $table->unsignedBigInteger('invoice_id'); //clave foranea de factura
             $table->unsignedBigInteger('product_id'); //clave foranea de producto
             $table->timestamps();

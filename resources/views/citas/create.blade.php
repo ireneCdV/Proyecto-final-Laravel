@@ -60,9 +60,38 @@
     <a href="{{ url()->previous() }}" class="metal-silver mt-3">Volver</a>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    const availableHoursUrl = "{{ route('available-hours') }}";
-</script>
-<script src="{{ asset('js/citas.js') }}"></script>
+    $(document).ready(function() {
+        $('#date').on('change', function() {
+            var selectedDate = $(this).val();
+    
+            $.ajax({
+                url: "{{ route('available-hours') }}",
+                method: "GET",
+                data: { fecha: selectedDate },
+                success: function(response) {
+                    var timeSelect = $('#time');
+                    timeSelect.empty();
+                    timeSelect.append('<option value="">Seleccione una hora</option>');
+    
+                    
+                    var allHours = response.availableHours.concat(response.takenHours);
+                    allHours.sort(); 
+    
+                    allHours.forEach(function(hour) {
+                        if (response.takenHours.includes(hour)) {
+                            timeSelect.append('<option disabled style="color: red;">' + hour + ' (ocupado)</option>');
+                        } else {
+                            timeSelect.append('<option value="' + hour + '">' + hour + '</option>');
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+    </script>
 @endsection

@@ -10,7 +10,7 @@ class Line extends Model
 {
     use HasFactory;
 
-    //Esto seria igual que la clase de User.php
+    
     protected $fillable = [
         "amount"
     ];

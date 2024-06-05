@@ -67,7 +67,7 @@ class CrudProductsController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = $image->storeAs('images', $imageName, 'public');
         } else {
-            $imagePath = 'default-image.jpg'; // Asumiendo que tienes una imagen predeterminada
+            $imagePath = 'default-image.jpg'; 
         }
     
         $crudproduct = new Product;

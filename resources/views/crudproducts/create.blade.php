@@ -12,6 +12,13 @@
         </div>
     @endif
 
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
     {!! Form::open(['route' => 'crudproducts.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 
         <div class="mb-3">

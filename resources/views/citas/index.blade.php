@@ -5,6 +5,19 @@
 <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 <link href="{{ asset('css/citas/citas.css') }}" rel="stylesheet">
 
+<!-- Mensajes de éxito -->
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+<!-- Mensajes de error -->
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
@@ -62,12 +75,6 @@
 <div class="d-flex justify-content-end mb-3"><a href="{{ route('citas.create') }}" class="button-gold mt-3">Nueva cita</a></div>
 
 
-<!-- Mensajes de error -->
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
 
 <!-- Formulario para filtro de estado -->
 <form method="GET" action="{{ route('citas.index') }}">
@@ -122,7 +129,7 @@
 <a href="{{ url()->previous() }}" class="metal-silver mt-3">Volver</a>
 
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-<script src="{{ asset('js/citas.js') }}"></script> <!-- Incluye citas.js al final del contenido -->
+<script src="{{ asset('js/citas.js') }}"></script> 
 
 
 

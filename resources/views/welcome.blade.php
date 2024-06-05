@@ -869,7 +869,7 @@
                             <p>
                                 Tienda online de Productos de Peluquería y Estética
 
-                                En TUPELUQUERIAONLINE intentamos ofrecer el mejor servicio y una relación calidad/precio
+                                Intentamos ofrecer el mejor servicio y una relación calidad/precio
                                 excepcional; contamos con los precios más competitivos del mercado. Puede encontrar en
                                 nuestro
                                 catálogo una gran variedad de productos de primera calidad totalmente originales y
@@ -880,7 +880,7 @@
                                 productos profesionales.
 
                                 Nuestra tienda online es fácil, intuitiva, rápida y sobre todo segura. ¡Cuenta con
-                                TUPELUQUERIAONLINE para llenar tu salón con productos de peluquería al mejor precio!
+                                Estilo & Tijeras para llenar tu salón con productos de peluquería al mejor precio!
 
                                 Si tiene dudas, consultas o simplemente busca asesoramiento profesional, no dude en
                                 contactarnos
@@ -893,7 +893,7 @@
                             <p>
 
 
-                                ¿Por qué los precios de TU PELUQUERÍA ONLINE son tan baratos?
+                                ¿Por qué los precios  son tan baratos?
                                 Esta es una cuestión que nos preguntáis constantemente porque nuestros precios son muy
                                 competitivos, la razón es que compramos grandes cantidades y los precios son más
                                 económicos; de
@@ -906,7 +906,7 @@
                             <br>
                             <p>
 
-                                ¿Por qué comprar productos de peluquería o estética en TU PELUQUERÍA ONLINE?
+                                ¿Por qué comprar productos de peluquería ?
                                 Por que tenemos un servicio rápido, efectivo y a unos precios competitivos. Todos los
                                 productos
                                 son comprados directamente al proveedor oficial de cada marca. Todos los productos son
